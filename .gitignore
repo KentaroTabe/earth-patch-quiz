@@ -6,3 +6,8 @@ work/
 
 # エディタ・ツールのローカル設定
 .claude/
+
+# 秘密情報。雛形は .env.local.example のほう
+.env
+.env.local
+.env.*.local

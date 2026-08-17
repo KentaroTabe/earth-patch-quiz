@@ -1,25 +1,29 @@
 // 問題画像を取得し、img/q/ に保存して img/manifest.js を書き出す（仕様 §6.3）。
 // R2 が設定されていれば同時にアップロードする。
 //
-//   npm run fetch                 … まだ無いものだけ取得
-//   npm run fetch -- --force      … 取り直す
+//   npm run fetch                  … まだ無いものだけ取得
+//   npm run fetch -- --force       … 取り直す
 //   npm run fetch -- --only=richat,fuji
-//   npm run fetch -- --prune      … 不採用（adopted: false）の画像を消す
-//   npm run fetch:dry             … 通信せず、叩く URL だけ出す
+//   npm run fetch -- --prune       … 不採用（adopted: false）の画像を消す
+//   npm run fetch -- --upload-only … 手元の画像を取り直さずに R2 へ上げる
+//   npm run fetch:dry              … 通信せず、叩く URL だけ出す
 //
 // 閲覧時にはタイルを取りに行かない（仕様 §14）。画像は事前にここで取り切る。
 import { writeFileSync, mkdirSync, existsSync, readFileSync, statSync, rmSync } from 'node:fs';
-import { loadPipeline, resolveSource, inRoot } from './lib/config.mjs';
+import { loadPipeline, loadLocalEnv, resolveSource, inRoot } from './lib/config.mjs';
 import { frameBounds, nativePixels } from './lib/geo.mjs';
 import { buildRequest, fetchImage } from './lib/imagery.mjs';
 import { jpegSize } from './lib/jpeg.mjs';
-import { r2Status, putObject } from './lib/r2.mjs';
+import { r2Status, resolveR2, putObject } from './lib/r2.mjs';
 
+loadLocalEnv();
 const pipeline = loadPipeline();
+const r2Config = resolveR2(loadPipeline().r2, process.env);
 const args = process.argv.slice(2);
 const dryRun = args.includes('--dry');
 const force = args.includes('--force');
 const prune = args.includes('--prune');
+const uploadOnly = args.includes('--upload-only');
 const onlyArg = args.find((a) => a.startsWith('--only='));
 const only = onlyArg ? new Set(onlyArg.slice('--only='.length).split(',')) : null;
 const sourceArg = args.find((a) => a.startsWith('--source='));
@@ -33,7 +37,7 @@ function loadQuestions() {
 }
 
 function keyFor(question) {
-  return question.image?.key ?? `${pipeline.r2.prefix}${question.id}.jpg`;
+  return question.image?.key ?? `${r2Config.prefix}${question.id}.jpg`;
 }
 
 function localPathFor(question) {
@@ -66,10 +70,14 @@ async function main() {
 
   mkdirSync(inRoot(pipeline.output.imageDir), { recursive: true });
 
-  const r2 = r2Status(pipeline.r2, process.env);
+  const r2 = r2Status(r2Config, process.env);
   if (!dryRun) {
-    console.log(r2.ready ? 'R2: アップロードします' : `R2: 使いません（${r2.reason}）`);
+    console.log(r2.ready ? `R2: ${r2Config.bucket} へアップロードします` : `R2: 使いません（${r2.reason}）`);
     console.log('');
+  }
+  if (uploadOnly && !r2.ready) {
+    console.log('--upload-only ですが R2 が使えません。中止します。');
+    process.exit(1);
   }
 
   const manifest = [];
@@ -98,6 +106,20 @@ async function main() {
       continue;
     }
 
+    // 手元にある画像をそのまま R2 へ上げる。取得はやり直さない。
+    if (uploadOnly) {
+      if (!existsSync(localPath)) {
+        console.log(`${question.id}  画像がありません。先に npm run fetch を走らせてください`);
+        continue;
+      }
+      if (!r2.ready) continue;
+      const buffer = readFileSync(localPath);
+      await putObject(r2Config, process.env, { key, body: buffer, contentType: 'image/jpeg' });
+      console.log(`${question.id.padEnd(16)} → ${r2Config.publicBase}${key}  ${(buffer.length / 1024).toFixed(0)} KB`);
+      manifest.push(entryFor(question, localPath, key, px, url));
+      continue;
+    }
+
     if (existsSync(localPath) && !force) {
       console.log(`${question.id}  すでにあります（--force で取り直し）`);
       manifest.push(entryFor(question, localPath, key, px, url));
@@ -113,7 +135,7 @@ async function main() {
     );
 
     if (r2.ready) {
-      const publicUrl = await putObject(pipeline.r2, process.env, {
+      const publicUrl = await putObject(r2Config, process.env, {
         key,
         body: buffer,
         contentType: 'image/jpeg',
@@ -127,6 +149,39 @@ async function main() {
   if (dryRun) return;
 
   writeManifest(manifest);
+
+  if (r2.ready && manifest.length) await verifyPublicAccess(manifest[0].key);
+}
+
+/**
+ * 上げたものが公開URLから実際に読めるか確かめる。
+ * バケットへの書き込みが成功していても、公開設定が入っていなければサイトからは見えない。
+ * ここを見ないと、デプロイして初めて画像だけ出ないことに気づく羽目になる。
+ */
+async function verifyPublicAccess(key) {
+  if (!r2Config.publicBase) {
+    console.log('\n公開URLが設定されていないので、読み取りの確認は飛ばします');
+    return;
+  }
+  const url = `${r2Config.publicBase}${key}`;
+  console.log(`\n公開URLの確認: ${url}`);
+  try {
+    const response = await fetch(url, { signal: AbortSignal.timeout(30000) });
+    const type = response.headers.get('content-type') ?? '';
+    if (response.ok && type.startsWith('image/')) {
+      console.log(`  読めました（HTTP ${response.status} ${type}）`);
+      return;
+    }
+    console.log(`  読めません（HTTP ${response.status} ${type}）`);
+    console.log('  バケットには入っているのに公開URLから読めない場合、原因はほぼ次のどちらかです。');
+    console.log('   - そのバケットの公開アクセス（r2.dev サブドメイン）が有効になっていない');
+    console.log('   - 公開URLが別のバケットのものになっている');
+    console.log('  Cloudflare の R2 → 該当バケット → 設定 → パブリックアクセス で確認してください。');
+    process.exitCode = 1;
+  } catch (error) {
+    console.log(`  確認できませんでした: ${error.message}`);
+    process.exitCode = 1;
+  }
 }
 
 function entryFor(question, localPath, key, px, url) {

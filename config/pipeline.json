@@ -102,13 +102,13 @@
     "workDir": "work"
   },
   "r2": {
-    "$comment": "Cloudflare R2。enabled が false のあいだは fetch-tiles.mjs はローカル保存だけで終わる。アカウント作成後に埋める。docs/IMAGERY.md 参照。",
-    "enabled": false,
+    "$comment": "Cloudflare R2。アカウントIDとバケット名、アクセスキーは .env.local から読む（公開リポジトリに出さない）。手順は docs/IMAGERY.md §5。",
+    "enabled": true,
     "accountId": "",
     "bucket": "",
     "region": "auto",
     "prefix": "q/",
-    "publicBase": "",
+    "publicBase": "https://pub-c5eba36108c542a3bf40bddc2b305bd7.r2.dev/",
     "credentialEnv": {
       "id": "R2_ACCESS_KEY_ID",
       "secret": "R2_SECRET_ACCESS_KEY"
