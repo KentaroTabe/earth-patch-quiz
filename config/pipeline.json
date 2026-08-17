@@ -94,11 +94,13 @@
     "max": 5
   },
   "quality": {
-    "$comment": "仕様 §5.4 の下見（probe）で雲・欠測を落とす条件。0〜255 の輝度で判定。",
+    "$comment": "仕様 §5.4 の下見で雲・欠測を落とす条件。走査線状の欠測は縮小すると消えるので scanlinePx の解像度で測る。しきい値は既知の採用・不採用14枚で較正した（docs/IMAGERY.md §3）。",
     "voidLumaBelow": 6,
     "cloudLumaAbove": 240,
     "maxBadPixelShare": 0.15,
-    "minStdDev": 4
+    "minStdDev": 4,
+    "scanlinePx": 700,
+    "maxScanlineShare": 0.02
   },
   "output": {
     "$comment": "画像の置き場所。ローカルは imageRoot + キー（例 img/q/richat.jpg）、R2 は publicBase + キー。",

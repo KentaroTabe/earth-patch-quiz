@@ -8,6 +8,8 @@
 //   npm run fetch -- --upload-only … 手元の画像を取り直さずに R2 へ上げる
 //   npm run fetch -- --verify-only … 公開URLから読めるかだけ確かめる
 //   npm run fetch -- --write-questions … 実測値を data/questions.js の image に書き戻す
+//   npm run fetch -- --patch-only  … 出題する枠だけ。選別の段階では広域は要らない
+//   npm run fetch -- --no-upload   … R2 へ上げずに手元へ置くだけ
 //   npm run fetch:dry              … 通信せず、叩く URL だけ出す
 //
 // 1問につき2枚を扱う。
@@ -33,6 +35,8 @@ const prune = args.includes('--prune');
 const uploadOnly = args.includes('--upload-only');
 const verifyOnly = args.includes('--verify-only');
 const writeQuestions = args.includes('--write-questions');
+const patchOnly = args.includes('--patch-only');
+const noUpload = args.includes('--no-upload');
 const onlyArg = args.find((a) => a.startsWith('--only='));
 const only = onlyArg ? new Set(onlyArg.slice('--only='.length).split(',')) : null;
 const sourceArg = args.find((a) => a.startsWith('--source='));
@@ -55,14 +59,15 @@ function localPathFor(key) {
 function variantsOf(question) {
   const patchKey = question.image?.key ?? `${r2Config.prefix}${question.id}.jpg`;
   const contextKey = question.image?.context?.key ?? `${pipeline.context.prefix}${question.id}.jpg`;
-  return [
-    { variant: 'patch', key: patchKey, areaKm2: question.frame.areaKm2 },
-    {
+  const variants = [{ variant: 'patch', key: patchKey, areaKm2: question.frame.areaKm2 }];
+  if (!patchOnly) {
+    variants.push({
       variant: 'context',
       key: contextKey,
       areaKm2: question.frame.areaKm2 * CONTEXT_AREA_SCALE,
-    },
-  ].map((v) => ({ ...v, question, localPath: localPathFor(v.key) }));
+    });
+  }
+  return variants.map((v) => ({ ...v, question, localPath: localPathFor(v.key) }));
 }
 
 function requestFor(target) {
@@ -105,7 +110,8 @@ async function main() {
       `${dryRun ? '  --dry: 通信しません' : ''}\n`,
   );
 
-  const r2 = r2Status(r2Config, process.env);
+  const status = r2Status(r2Config, process.env);
+  const r2 = noUpload ? { ready: false, reason: '--no-upload' } : status;
   if (!dryRun) {
     console.log(r2.ready ? `R2: ${r2Config.bucket} へアップロードします` : `R2: 使いません（${r2.reason}）`);
     console.log('');
@@ -180,6 +186,12 @@ async function main() {
 
   if (dryRun) return;
 
+  // 選別の途中では manifest を壊さない。広域が揃っていないので上書きすると検査に落ちる。
+  if (patchOnly) {
+    console.log('\n--patch-only なので img/manifest.js は触りません（選別が済んだら --force なしで取り直す）');
+    return;
+  }
+
   writeManifest(manifest);
 
   if (writeQuestions) writeQuestionImages(manifest);
@@ -224,16 +236,27 @@ function writeQuestionImages(entries) {
   console.log(`data/questions.js の image を ${replaced} 件書き直しました`);
 }
 
-/** 該当 id のブロックの中の image を、括弧の対応を数えて置き換える。 */
+/**
+ * 該当 id のブロックの中の image を書き換える。まだ image が無ければ末尾に足す。
+ * 入れ子の括弧があるので、対応を数えて範囲を決める。
+ */
 function replaceImageBlock(text, id, block) {
   const idAt = text.indexOf(`id: '${id}',`);
   if (idAt < 0) return null;
-  const start = text.indexOf('image: {', idAt);
-  if (start < 0) return null;
+
+  // この問題の終わり。字下げ2つの } が項目の区切り。
+  const entryEnd = text.indexOf('\n  },', idAt);
+  if (entryEnd < 0) return null;
+
+  const imageAt = text.indexOf('image: {', idAt);
+  if (imageAt < 0 || imageAt > entryEnd) {
+    // まだ無いので足す
+    return `${text.slice(0, entryEnd)}\n    ${block},${text.slice(entryEnd)}`;
+  }
 
   let depth = 0;
   let end = -1;
-  for (let i = text.indexOf('{', start); i < text.length; i++) {
+  for (let i = text.indexOf('{', imageAt); i < text.length; i++) {
     if (text[i] === '{') depth++;
     else if (text[i] === '}') {
       depth--;
@@ -244,7 +267,7 @@ function replaceImageBlock(text, id, block) {
     }
   }
   if (end < 0) return null;
-  return text.slice(0, start) + block + text.slice(end);
+  return text.slice(0, imageAt) + block + text.slice(end);
 }
 
 function q(value) {

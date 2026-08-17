@@ -64,7 +64,25 @@ for (const question of questions.filter((q) => q.adopted === false)) {
   if (!question.reject) warn(question.id, '不採用なのに reject に理由が書かれていません');
 }
 
-const adopted = questions.filter((q) => q.adopted !== false);
+// ── 未決定はまだ問題ではない。座標と枠だけ見る ──────
+// 出題されるのは adopted: true だけ（assets/app.js）。解説がまだ無いのは当然なので落とさない。
+const undecided = questions.filter((q) => q.adopted === undefined);
+for (const question of undecided) {
+  const id = question.id ?? '(id なし)';
+  if (!question.answer || typeof question.answer.lat !== 'number' || typeof question.answer.lon !== 'number') {
+    fail(id, '未決定ですが座標がありません');
+    continue;
+  }
+  if (!onLand(question.answer.lon, question.answer.lat)) {
+    fail(id, `未決定ですが陸地ポリゴンの外にあります（${question.answer.lat}, ${question.answer.lon}）`);
+  }
+  if (!question.frame?.areaKm2) fail(id, '未決定ですが frame.areaKm2 がありません');
+}
+if (undecided.length) {
+  warn('(全体)', `未決定の候補が ${undecided.length} 件あります。npm run sheet で目視して採否を決めてください`);
+}
+
+const adopted = questions.filter((q) => q.adopted === true);
 const servesImagesRemotely = /^https?:\/\//.test(siteConfig.imageBase);
 
 /** 1枚ぶんの画像情報が manifest と食い違っていないか見る。 */
@@ -183,8 +201,15 @@ if (adopted.length < siteConfig.set.size) {
 report();
 
 function report() {
-  const adoptedCount = questions ? questions.filter((q) => q.adopted !== false).length : 0;
-  console.log(`検査対象: 採用 ${adoptedCount} 問 / 全 ${questions ? questions.length : 0} 件`);
+  const all = questions ?? [];
+  const counts = {
+    採用: all.filter((q) => q.adopted === true).length,
+    未決定: all.filter((q) => q.adopted === undefined).length,
+    不採用: all.filter((q) => q.adopted === false).length,
+  };
+  console.log(
+    `検査対象: 採用 ${counts.採用} 問 / 未決定 ${counts.未決定} / 不採用 ${counts.不採用} / 全 ${all.length} 件`,
+  );
 
   if (warnings.length) {
     console.log(`\n注意 ${warnings.length} 件`);

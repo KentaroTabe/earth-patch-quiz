@@ -16,27 +16,59 @@ export function luma(r, g, b) {
   return 0.299 * r + 0.587 * g + 0.114 * b;
 }
 
+/**
+ * 走査線状の欠測の割合。
+ *
+ * Landsat の年次モザイクには、帯や斑点の形で欠測が入ることがある。輝度の平均や
+ * 分散では落ちないが、「上下2行とは互いに似ているのに、その行だけ大きく外れる」
+ * という形をしているので拾える。自然の地形は上下と相関するのでこの形になりにくい。
+ *
+ * 縮小すると縞が平均化されて消えるので、下見より高い解像度で測る必要がある
+ * （quality.scanlinePx）。しきい値は既知の採用・不採用14枚で較正した。
+ * 重症のもの（マナウス3.6% / レンソイス3.7% / ナトロン3.9%）だけが 2% を超え、
+ * 採用したものは最大でも1.3%だった。**軽症は拾えない。目視は省けない。**
+ */
+export function scanlineShare(image) {
+  const { width, height, rgb } = image;
+  const gray = new Float32Array(width * height);
+  for (let i = 0; i < width * height; i++) {
+    gray[i] = luma(rgb[i * 3], rgb[i * 3 + 1], rgb[i * 3 + 2]);
+  }
+  let hits = 0;
+  for (let y = 2; y < height - 2; y++) {
+    for (let x = 0; x < width; x++) {
+      const here = gray[y * width + x];
+      const above = gray[(y - 2) * width + x];
+      const below = gray[(y + 2) * width + x];
+      if (Math.abs(above - below) < 12 && Math.abs(here - (above + below) / 2) > 35) hits++;
+    }
+  }
+  return hits / (width * height);
+}
+
 /** 下見用。雲だらけ・欠測だらけの枠を落とす（仕様 §5.4 の isCloudOrVoid）。 */
 export function inspectQuality(image, qualityCfg) {
   const count = image.width * image.height;
   let bad = 0;
   let sum = 0;
   let sumSq = 0;
+
   for (let i = 0; i < count; i++) {
     const value = luma(image.rgb[i * 3], image.rgb[i * 3 + 1], image.rgb[i * 3 + 2]);
     if (value < qualityCfg.voidLumaBelow || value > qualityCfg.cloudLumaAbove) bad++;
     sum += value;
     sumSq += value * value;
   }
+
   const mean = sum / count;
   const stdDev = Math.sqrt(Math.max(0, sumSq / count - mean * mean));
   const badShare = bad / count;
-  return {
-    mean,
-    stdDev,
-    badShare,
-    ok: badShare <= qualityCfg.maxBadPixelShare && stdDev >= qualityCfg.minStdDev,
-  };
+
+  const reasons = [];
+  if (badShare > qualityCfg.maxBadPixelShare) reasons.push(`白飛び・黒潰れ ${(badShare * 100).toFixed(0)}%`);
+  if (stdDev < qualityCfg.minStdDev) reasons.push(`のっぺり（分散 ${stdDev.toFixed(1)}）`);
+
+  return { mean, stdDev, badShare, reasons, ok: reasons.length === 0 };
 }
 
 /**

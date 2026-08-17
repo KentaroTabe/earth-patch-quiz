@@ -1,6 +1,7 @@
 // 弁別性を計算し、枠サイズを決める（仕様 §5.3〜§5.5）。
 //
 //   npm run score                  … data/questions.js の採用分を採点する
+//   npm run score -- --screen      … 未決定の候補を機械で下見する（目視の前段）
 //   npm run score -- --write       … 結果を data/questions.js の scores に書き戻す
 //   npm run score -- --candidates  … work/candidates.json（scan の出力）を採点する
 //   npm run score -- --fit-frame   … 枠を段階的に広げ、しきい値を超えたところで確定する
@@ -17,6 +18,7 @@ import {
   nearestNeighborDistances,
   normalizeSeries,
   perceptualHash,
+  scanlineShare,
   waterFeatures,
 } from './lib/image-features.mjs';
 
@@ -25,6 +27,7 @@ const args = process.argv.slice(2);
 const useCandidates = args.includes('--candidates');
 const fitFrame = args.includes('--fit-frame');
 const writeBack = args.includes('--write');
+const screenOnly = args.includes('--screen');
 const source = resolveSource(args.find((a) => a.startsWith('--source='))?.slice('--source='.length));
 
 function loadGlobal(path, name) {
@@ -104,7 +107,65 @@ function difficultyOf(fame) {
   return Math.max(pipeline.difficulty.min, Math.min(pipeline.difficulty.max, raw));
 }
 
+/**
+ * 目視の前段。未決定の候補を機械で下見して、明らかに使えないものを先に落とす。
+ * 拾えるのは重症の欠測と、白飛び・のっぺりだけ。**軽症は目視でしか落とせない。**
+ */
+async function screen() {
+  globalThis.window = globalThis.window ?? {};
+  new Function(readFileSync(inRoot('data/questions.js'), 'utf8'))();
+  const candidates = globalThis.window.EARTH_PATCH_QUESTIONS.filter((q) => q.adopted === undefined);
+
+  console.log(`未決定の候補 ${candidates.length} 件を下見します（${pipeline.quality.scanlinePx}px）\n`);
+  const rows = [];
+
+  for (const question of candidates) {
+    const image = await fetchPixels(
+      source,
+      {
+        lat: question.answer.lat,
+        lon: question.answer.lon,
+        areaKm2: question.frame.areaKm2,
+        px: pipeline.quality.scanlinePx,
+        layerKey: 'truecolor',
+      },
+      pipeline.frame,
+    );
+    const quality = inspectQuality(image, pipeline.quality);
+    const scanline = scanlineShare(image);
+    const reasons = [...quality.reasons];
+    if (scanline > pipeline.quality.maxScanlineShare) {
+      reasons.push(`欠測の縞 ${(scanline * 100).toFixed(1)}%`);
+    }
+
+    rows.push({
+      id: question.id,
+      category: question.category ?? '',
+      ok: reasons.length === 0,
+      reasons,
+      scanline: Number((scanline * 100).toFixed(2)),
+      meanLuma: Math.round(quality.mean),
+      stdDev: Number(quality.stdDev.toFixed(1)),
+    });
+    console.log(
+      `${question.id.padEnd(22)}${reasons.length ? ' x ' : ' ok'}  ` +
+        `縞 ${String(rows[rows.length - 1].scanline).padStart(5)}%  ` +
+        `輝度 ${String(rows[rows.length - 1].meanLuma).padStart(3)}  ` +
+        `分散 ${String(rows[rows.length - 1].stdDev).padStart(5)}  ${reasons.join(' / ')}`,
+    );
+  }
+
+  mkdirSync(inRoot(pipeline.output.workDir), { recursive: true });
+  writeFileSync(inRoot(pipeline.output.workDir, 'screen.json'), `${JSON.stringify(rows, null, 2)}\n`);
+
+  const failed = rows.filter((r) => !r.ok);
+  console.log(`\n機械で落ちたもの ${failed.length} / ${rows.length} 件`);
+  for (const row of failed) console.log(`  x ${row.id}  ${row.reasons.join(' / ')}`);
+  console.log('\n残りは npm run sheet で目視してください。機械が拾えるのは重症だけです。');
+}
+
 async function main() {
+  if (screenOnly) return screen();
   const targets = loadTargets();
   console.log(`ソース: ${source.label}  ${source.metersPerPixel} m/px`);
   console.log(`対象 ${targets.length} 件  ${fitFrame ? '（枠サイズも決める）' : '（枠は指定どおり）'}\n`);
@@ -220,16 +281,25 @@ function writeScoresInto(scored) {
   let replaced = 0;
 
   for (const s of scored) {
-    // 該当 id のブロックの中の scores 行だけを狙う。
-    const block = new RegExp(`(id: '${s.id}',[\\s\\S]*?)scores: \\{[^}]*\\}`, 'm');
-    if (!block.test(text)) {
-      console.log(`  ! ${s.id} の scores 行が見つかりません`);
+    const line = `scores: { distinct: ${s.distinct}, fame: ${s.fame}, difficulty: ${s.difficulty} }`;
+    const idAt = text.indexOf(`id: '${s.id}',`);
+    if (idAt < 0) {
+      console.log(`  ! ${s.id} が見つかりません`);
       continue;
     }
-    text = text.replace(
-      block,
-      `$1scores: { distinct: ${s.distinct}, fame: ${s.fame}, difficulty: ${s.difficulty} }`,
-    );
+    // この問題の終わり。字下げ2つの } が項目の区切り。
+    const entryEnd = text.indexOf('\n  },', idAt);
+    const scoresAt = text.indexOf('scores: {', idAt);
+
+    if (scoresAt >= 0 && scoresAt < entryEnd) {
+      const close = text.indexOf('}', scoresAt);
+      text = text.slice(0, scoresAt) + line + text.slice(close + 1);
+    } else {
+      // まだ無いので足す。image より前に置く。
+      const imageAt = text.indexOf('    image: {', idAt);
+      const at = imageAt >= 0 && imageAt < entryEnd ? imageAt : entryEnd + 1;
+      text = `${text.slice(0, at)}    ${line},\n${text.slice(at)}`;
+    }
     replaced++;
   }
 
