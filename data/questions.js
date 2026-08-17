@@ -18,13 +18,13 @@ window.EARTH_PATCH_QUESTIONS = [
     adopted: true,
     wikipedia: 'Richat Structure',
     answer: { lat: 21.124, lon: -11.401, place: 'リシャット構造', region: 'モーリタニア・アドラール州', country: 'MR' },
-    frame: { areaKm2: 2000, sensor: 'landsat', meters: 30 },
+    frame: { areaKm2: 18000, sensor: 'landsat', meters: 30 },
     headline: '砂漠に浮かぶ巨大な同心円',
     caption:
       '硬い岩と柔らかい岩が交互に重なった地層がドーム状に持ち上がり、上から削られたので、硬い層だけが輪の形で残りました。差し渡しは40kmほどあり、宇宙から自分の位置を確かめる目印として使われてきました。',
     term: 'ドーム構造',
-    scores: { distinct: 0.289, fame: 0.426, difficulty: 3 },
-    image: { key: 'q/richat.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/richat.jpg', width: 1400, areaKm2: 18000 } },
+    scores: { distinct: 0.294, fame: 0.426, difficulty: 3 },
+    image: { key: 'q/richat.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/richat.jpg', width: 1400, areaKm2: 162000 } },
   },
   {
     id: 'fuji',
@@ -37,7 +37,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '同じ火口から溶岩と火山灰が何度も噴き出して四方に積み重なったので、どちらから見てもほぼ同じ傾きの円すいになりました。頂の周りだけ茶色いのは、傾斜が急で植物が根づかないからです。',
     term: '成層火山',
-    scores: { distinct: 0.209, fame: 0.823, difficulty: 1 },
+    scores: { distinct: 0.207, fame: 0.823, difficulty: 1 },
     image: { key: 'q/fuji.jpg', width: 745, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/fuji.jpg', width: 1400, areaKm2: 4500 } },
   },
   {
@@ -51,7 +51,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '古い山体が大きく崩れたあと、その内側に新しい火口が育ったので、輪の中にもう一つ輪が入った形になりました。周りを埋める灰色は、火口から10kmと離れていない場所まで広がった市街地です。',
     term: '外輪山',
-    scores: { distinct: 0.772, fame: 0.806, difficulty: 1 },
+    scores: { distinct: 0.806, fame: 0.806, difficulty: 1 },
     image: { key: 'q/vesuvio.jpg', width: 745, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/vesuvio.jpg', width: 1400, areaKm2: 4500 } },
   },
   {
@@ -60,13 +60,13 @@ window.EARTH_PATCH_QUESTIONS = [
     adopted: true,
     wikipedia: 'Grand Canyon',
     answer: { lat: 36.1, lon: -112.1, place: 'グランド・キャニオン', region: 'アメリカ・アリゾナ州', country: 'US' },
-    frame: { areaKm2: 1000, sensor: 'landsat', meters: 30 },
+    frame: { areaKm2: 9000, sensor: 'landsat', meters: 30 },
     headline: '大地に刻まれた枝分かれの深い溝',
     caption:
       '台地がゆっくり持ち上がるあいだも川が同じ場所を削り続けたので、蛇行した形のまま地面へ食い込み、深い谷になりました。谷底を横切る細い線が、その川そのものです。',
     term: '先行谷',
-    scores: { distinct: 0.341, fame: 0.772, difficulty: 2 },
-    image: { key: 'q/grand-canyon.jpg', width: 1054, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/grand-canyon.jpg', width: 1400, areaKm2: 9000 } },
+    scores: { distinct: 0.409, fame: 0.772, difficulty: 2 },
+    image: { key: 'q/grand-canyon.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/grand-canyon.jpg', width: 1400, areaKm2: 81000 } },
   },
   {
     id: 'dead-sea',
@@ -79,7 +79,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '流れ込んだ水が出口を持たずに蒸発し続けるので、塩分が濃くなり、乾いた周りとの境がはっきり出ます。南側にある格子模様は、その塩を採るために仕切られた浅い池です。',
     term: '内陸塩湖',
-    scores: { distinct: 0.742, fame: 0.874, difficulty: 1 },
+    scores: { distinct: 0.79, fame: 0.874, difficulty: 1 },
     image: { key: 'q/dead-sea.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/dead-sea.jpg', width: 1400, areaKm2: 18000 } },
   },
   {
@@ -93,7 +93,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '溶岩が同じ斜面を何度も流れ下ったので、新しく流れたものほど黒く、古いものほど植物に覆われて緑に近づきます。頂の周りがいちばん暗いのは、そこが最も新しいからです。',
     term: '溶岩流',
-    scores: { distinct: 0.361, fame: 0.778, difficulty: 2 },
+    scores: { distinct: 0.33, fame: 0.778, difficulty: 2 },
     image: { key: 'q/etna.jpg', width: 745, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/etna.jpg', width: 1400, areaKm2: 4500 } },
   },
   {
@@ -107,7 +107,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '人が地面を掘って二つの海をつないだので、自然の川では起こらないほどまっすぐな線になりました。途中で幅が広がっているところは、もとからあった湖をそのまま航路に取り込んだ部分です。',
     term: '運河',
-    scores: { distinct: 0.525, fame: 0.904, difficulty: 1 },
+    scores: { distinct: 0.562, fame: 0.904, difficulty: 1 },
     image: { key: 'q/suez.jpg', width: 1054, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/suez.jpg', width: 1400, areaKm2: 9000 } },
   },
   {
@@ -135,7 +135,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '山の中身が噴き出して空になり、頂が丸ごと落ち込んだ窪みに水がたまったので、ほぼ円い湖になりました。流れ込む川がなく雨と雪だけで満たされるため、濁りがなく色が濃く出ます。',
     term: 'カルデラ湖',
-    scores: { distinct: 0.759, fame: 0.519, difficulty: 3 },
+    scores: { distinct: 0.767, fame: 0.519, difficulty: 3 },
     image: { key: 'q/crater-lake.jpg', width: 471, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/crater-lake.jpg', width: 1400, areaKm2: 1800 } },
   },
   {
@@ -149,7 +149,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '川が運んだ砂が沿岸の流れで細長く伸びて外海をふさいだので、内側に浅い水面が閉じ込められました。潟の真ん中にある小さな塊が、水路で細かく分かれた市街地です。',
     term: 'ラグーン',
-    scores: { distinct: 0.694, fame: 0.513, difficulty: 3 },
+    scores: { distinct: 0.702, fame: 0.513, difficulty: 3 },
     image: { key: 'q/venezia.jpg', width: 745, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/venezia.jpg', width: 1400, areaKm2: 4500 } },
   },
   {
@@ -158,13 +158,13 @@ window.EARTH_PATCH_QUESTIONS = [
     adopted: true,
     wikipedia: 'Musandam Governorate',
     answer: { lat: 26.2, lon: 56.25, place: 'ムサンダム半島', region: 'オマーン・ムサンダム県', country: 'OM' },
-    frame: { areaKm2: 1000, sensor: 'landsat', meters: 30 },
+    frame: { areaKm2: 9000, sensor: 'landsat', meters: 30 },
     headline: '海が細く入り込んだぎざぎざの岩山',
     caption:
       '山地がゆっくり沈み込んで谷の底まで海水が入ったので、入り江が枝分かれしたまま奥深くまで届いています。陸に緑がほとんど無いのは、雨がめったに降らないからです。',
     term: '沈水海岸',
-    scores: { distinct: 0.945, fame: 0.487, difficulty: 3 },
-    image: { key: 'q/musandam.jpg', width: 1054, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/musandam.jpg', width: 1400, areaKm2: 9000 } },
+    scores: { distinct: 0.742, fame: 0.487, difficulty: 3 },
+    image: { key: 'q/musandam.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/musandam.jpg', width: 1400, areaKm2: 81000 } },
   },
   {
     id: 'nasser',
@@ -177,7 +177,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '川をせき止めて谷を水で満たしたので、もとの谷筋の形がそのまま水際の輪郭として残りました。岸のすぐ外まで砂色なのは、雨が降らず、水の届く幅がごく狭いからです。',
     term: '人造湖',
-    scores: { distinct: 0.793, fame: 0.555, difficulty: 3 },
+    scores: { distinct: 0.838, fame: 0.555, difficulty: 3 },
     image: { key: 'q/nasser.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/nasser.jpg', width: 1400, areaKm2: 18000 } },
   },
   {
@@ -191,7 +191,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '湖を横切る堤が水の行き来をさえぎり、南北で塩分が変わったので、そこに育つ生き物の色の差がそのまま境目として出ました。左下の四角く区切られた浅い水面は、塩を採るための仕切りです。',
     term: '塩湖',
-    scores: { distinct: 0.828, fame: 0.611, difficulty: 2 },
+    scores: { distinct: 0.871, fame: 0.611, difficulty: 2 },
     image: { key: 'q/great-salt-lake.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/great-salt-lake.jpg', width: 1400, areaKm2: 18000 } },
   },
   {
@@ -205,7 +205,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '巨大な噴火で地下が空になって陥没したあと、底がふたたび押し上げられたので、湖の中に島ができました。湖の縁がまっすぐに切れているのは、陥没したときの崖がそのまま残っているからです。',
     term: '再生ドーム',
-    scores: { distinct: 0.398, fame: 0.63, difficulty: 2 },
+    scores: { distinct: 0.392, fame: 0.63, difficulty: 2 },
     image: { key: 'q/toba.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/toba.jpg', width: 1400, areaKm2: 18000 } },
   },
   {
@@ -219,7 +219,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '硬い砂岩の層が水平に積もったまま持ち上がり、上面がまんべんなく削られたので、頂が平らな山になりました。その北側に密集した灰色が、山の裾から湾まで広がる市街地です。',
     term: 'テーブルマウンテン',
-    scores: { distinct: 0.96, fame: 0.353, difficulty: 4 },
+    scores: { distinct: 0.97, fame: 0.353, difficulty: 4 },
     image: { key: 'q/capetown.jpg', width: 1054, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/capetown.jpg', width: 1400, areaKm2: 9000 } },
   },
   {
@@ -233,7 +233,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '上流で地面がむき出しになり、赤い土が雨のたびに川へ流れ込むので、河口まで濁ったまま届きます。細長い中州が何本も平行に並んでいるのは、運ばれてきた土がそこで積もるからです。',
     term: '土壌侵食',
-    scores: { distinct: 0.455, fame: 0.382, difficulty: 4 },
+    scores: { distinct: 0.47, fame: 0.382, difficulty: 4 },
     image: { key: 'q/betsiboka.jpg', width: 1054, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/betsiboka.jpg', width: 1400, areaKm2: 9000 } },
   },
   {
@@ -242,13 +242,13 @@ window.EARTH_PATCH_QUESTIONS = [
     adopted: true,
     wikipedia: 'Manicouagan Reservoir',
     answer: { lat: 51.42, lon: -68.7, place: 'マニクアガン湖', region: 'カナダ・ケベック州', country: 'CA' },
-    frame: { areaKm2: 2000, sensor: 'landsat', meters: 30 },
+    frame: { areaKm2: 18000, sensor: 'landsat', meters: 30 },
     headline: '森の中を一周する細い黒い輪',
     caption:
       '大きな天体がぶつかってできた円い窪地を下流でせき止めたので、水が輪の形にたまり、中央の高まりが島として残りました。輪の差し渡しは70kmほどあります。',
     term: '衝突クレーター',
-    scores: { distinct: 0.223, fame: 0.32, difficulty: 4 },
-    image: { key: 'q/manicouagan.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/manicouagan.jpg', width: 1400, areaKm2: 18000 } },
+    scores: { distinct: 0.328, fame: 0.32, difficulty: 4 },
+    image: { key: 'q/manicouagan.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/manicouagan.jpg', width: 1400, areaKm2: 162000 } },
   },
   {
     id: 'sossusvlei',
@@ -256,13 +256,13 @@ window.EARTH_PATCH_QUESTIONS = [
     adopted: true,
     wikipedia: 'Sossusvlei',
     answer: { lat: -24.73, lon: 15.35, place: 'ソススフレイ', region: 'ナミビア・ナミブ砂漠', country: 'NA' },
-    frame: { areaKm2: 1000, sensor: 'landsat', meters: 30 },
+    frame: { areaKm2: 9000, sensor: 'landsat', meters: 30 },
     headline: '同じ向きに並んだ赤い砂の峰',
     caption:
       '風がほぼ一定の向きに吹き続けるので、砂の山が向きをそろえて何十kmも伸びます。真ん中を横切る白い帯は、砂に行く手をふさがれて干上がった川の跡です。',
     term: '縦列砂丘',
-    scores: { distinct: 0.269, fame: 0.258, difficulty: 4 },
-    image: { key: 'q/sossusvlei.jpg', width: 1054, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/sossusvlei.jpg', width: 1400, areaKm2: 9000 } },
+    scores: { distinct: 0.171, fame: 0.258, difficulty: 4 },
+    image: { key: 'q/sossusvlei.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/sossusvlei.jpg', width: 1400, areaKm2: 81000 } },
   },
   {
     id: 'lena-delta',
@@ -275,7 +275,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '地面が深くまで凍っていて水がしみ込めないので、川は地表を細かく枝分かれしながら海へ向かいます。網目がどこも同じ細かさなのは、傾きがほとんどない平らな土地だからです。',
     term: '永久凍土',
-    scores: { distinct: 0.387, fame: 0.124, difficulty: 5 },
+    scores: { distinct: 0.383, fame: 0.124, difficulty: 5 },
     image: { key: 'q/lena-delta.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/lena-delta.jpg', width: 1400, areaKm2: 18000 } },
   },
   {
@@ -289,7 +289,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '火山が噴火のあとに自分の重みで陥没したので、外側の縁だけが円く残り、内側は平らな盆地になりました。底の白っぽい部分は、乾いた季節に塩が浮き出る浅い湖です。',
     term: 'カルデラ',
-    scores: { distinct: 0.408, fame: 0, difficulty: 5 },
+    scores: { distinct: 0.413, fame: 0, difficulty: 5 },
     image: { key: 'q/ngorongoro.jpg', width: 745, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/ngorongoro.jpg', width: 1400, areaKm2: 4500 } },
   },
 
@@ -306,7 +306,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '谷をせき止めて人造湖を作り、そこを船が通れるようにしたので、もとの川筋の形がそのまま水面として残りました。左上の海と右下の海のあいだは、大陸がいちばん細くなっている場所のひとつです。',
     term: '閘門',
-    scores: { distinct: 0.626, fame: 0.874, difficulty: 1 },
+    scores: { distinct: 0.646, fame: 0.874, difficulty: 1 },
     image: { key: 'q/panama.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/panama.jpg', width: 1400, areaKm2: 90000 } },
   },
   {
@@ -320,7 +320,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '川が運んできた砂と泥が河口に積もり続けるので、陸が海のほうへ押し出され、流れがその中でいくつにも分かれます。緑の中に扇のような筋が並んでいるのは、かつての波打ち際が順に取り残されたあとです。',
     term: '三角州',
-    scores: { distinct: 0.585, fame: 0.571, difficulty: 3 },
+    scores: { distinct: 0.583, fame: 0.571, difficulty: 3 },
     image: { key: 'q/danube-delta.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/danube-delta.jpg', width: 1400, areaKm2: 90000 } },
   },
   {
@@ -334,7 +334,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       'かつて湖だった窪地が干上がり、あとに残った塩と泥が地面を覆ったので、赤茶けた周りとくっきり分かれます。周囲に小さな白い点が散らばっているのは、同じようにできた小さな窪地です。',
     term: '塩性湿地',
-    scores: { distinct: 0.3, fame: 0.297, difficulty: 4 },
+    scores: { distinct: 0.324, fame: 0.297, difficulty: 4 },
     image: { key: 'q/etosha.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/etosha.jpg', width: 1400, areaKm2: 180000 } },
   },
   {
@@ -348,7 +348,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '川が海にたどり着かないまま砂の中へ広がって消えるので、水が扇の形に分かれて内陸に残ります。周りが乾いた色なのに扇の中だけ緑なのは、そこにだけ水が届いているからです。',
     term: '内陸デルタ',
-    scores: { distinct: 0.414, fame: 0.587, difficulty: 3 },
+    scores: { distinct: 0.419, fame: 0.587, difficulty: 3 },
     image: { key: 'q/okavango.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/okavango.jpg', width: 1400, areaKm2: 180000 } },
   },
   {
@@ -362,7 +362,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       'めったに水が来ない窪地で、たまに流れ込んだ水がそのまま蒸発して塩を残すので、地面が白く塗られたようになります。上から細く伸びている筋は、内陸から水を運んでくる川の跡です。',
     term: '内陸湖',
-    scores: { distinct: 0.329, fame: 0.621, difficulty: 2 },
+    scores: { distinct: 0.32, fame: 0.621, difficulty: 2 },
     image: { key: 'q/lake-eyre.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/lake-eyre.jpg', width: 1400, areaKm2: 180000 } },
   },
 
@@ -382,7 +382,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       'まわりに山脈がなく一つの火山だけが平原に育ったので、裾野がどの向きにも均等に広がりました。頂が白いのは、赤道のすぐ近くでありながら標高が高く、氷が残っているからです。',
     term: '成層火山',
-    scores: { distinct: 0.389, fame: 0.922, difficulty: 1 },
+    scores: { distinct: 0.388, fame: 0.922, difficulty: 1 },
     image: { key: 'q/kilimanjaro.jpg', width: 745, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/kilimanjaro.jpg', width: 1400, areaKm2: 4500 } },
   },
   {
@@ -396,7 +396,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '巨大な噴火で地下が空になって陥没し、その窪みの中に新しい火山が育ったので、輪の内側に山と平らな底が同居しています。底の緑と灰色は、そこに開かれた田畑と町です。',
     term: 'カルデラ',
-    scores: { distinct: 0.362, fame: 0.48, difficulty: 3 },
+    scores: { distinct: 0.349, fame: 0.48, difficulty: 3 },
     image: { key: 'q/aso.jpg', width: 745, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/aso.jpg', width: 1400, areaKm2: 4500 } },
   },
   {
@@ -410,7 +410,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '同じ火山帯の上で二つの火山が近くに育ったので、高い峰が並んで立ちます。頂の白は残った雪で、その下の茶色は木が育たない高さの斜面です。',
     term: '成層火山',
-    scores: { distinct: 0.383, fame: 0.625, difficulty: 2 },
+    scores: { distinct: 0.378, fame: 0.625, difficulty: 2 },
     image: { key: 'q/popocatepetl.jpg', width: 745, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/popocatepetl.jpg', width: 1400, areaKm2: 4500 } },
   },
   {
@@ -424,7 +424,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '連なる山脈の上に単独の火山が積み上がったので、周りの尾根より頭一つ高くなりました。頂が白いのは、赤道の近くでも標高が高く氷が残るからです。',
     term: '氷冠',
-    scores: { distinct: 0.16, fame: 0.582, difficulty: 3 },
+    scores: { distinct: 0.152, fame: 0.582, difficulty: 3 },
     image: { key: 'q/cotopaxi.jpg', width: 745, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/cotopaxi.jpg', width: 1400, areaKm2: 4500 } },
   },
   {
@@ -438,7 +438,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '同じ場所で噴火が繰り返され、火山灰と溶岩が積もって隣り合う円すいが並びました。裾が灰色一色なのは、新しい噴出物が植物の育つ間を与えないからです。',
     term: '火山群',
-    scores: { distinct: 0.55, fame: 0.571, difficulty: 3 },
+    scores: { distinct: 0.603, fame: 0.571, difficulty: 3 },
     image: { key: 'q/klyuchevskaya.jpg', width: 1054, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/klyuchevskaya.jpg', width: 1400, areaKm2: 9000 } },
   },
   {
@@ -452,7 +452,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '山頂が吹き飛んでできた窪みに水がたまり、まわりには噴出物が谷を伝って流れ下った跡が残りました。灰色の筋が放射状に伸びているのはそのためです。',
     term: '火口湖',
-    scores: { distinct: 0.36, fame: 0.607, difficulty: 2 },
+    scores: { distinct: 0.384, fame: 0.607, difficulty: 2 },
     image: { key: 'q/pinatubo.jpg', width: 471, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/pinatubo.jpg', width: 1400, areaKm2: 1800 } },
   },
   {
@@ -466,7 +466,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '粘り気の少ない溶岩が遠くまで流れるので、山は険しくならず、代わりに黒い流れの跡が斜面を覆います。新しい流れほど黒く、古いものほど周りの色に近づきます。',
     term: '盾状火山',
-    scores: { distinct: 0.416, fame: 0.651, difficulty: 2 },
+    scores: { distinct: 0.41, fame: 0.651, difficulty: 2 },
     image: { key: 'q/mauna-loa.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/mauna-loa.jpg', width: 1400, areaKm2: 18000 } },
   },
   {
@@ -480,7 +480,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '山の中身が一度に噴き出して支えを失い、頂が丸ごと落ち込んだので、円い穴だけが残りました。差し渡しは6kmほどあります。',
     term: 'カルデラ',
-    scores: { distinct: 0.441, fame: 0.621, difficulty: 2 },
+    scores: { distinct: 0.455, fame: 0.621, difficulty: 2 },
     image: { key: 'q/tambora.jpg', width: 745, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/tambora.jpg', width: 1400, areaKm2: 4500 } },
   },
   {
@@ -494,7 +494,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '山体の一方が崩れ落ちて谷へ流れ下ったので、円すいだったはずの山が馬蹄の形に開きました。開いた先の灰色は、そのとき木がなぎ倒された範囲です。',
     term: '山体崩壊',
-    scores: { distinct: 0.551, fame: 0.655, difficulty: 2 },
+    scores: { distinct: 0.58, fame: 0.655, difficulty: 2 },
     image: { key: 'q/st-helens.jpg', width: 471, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/st-helens.jpg', width: 1400, areaKm2: 1800 } },
   },
   {
@@ -508,7 +508,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '大きな陥没でできた平らな底に火山灰が敷き詰められ、その中央に新しい火口が育ちました。底が一様に灰色なのは、細かい灰に覆われて植物が根づかないからです。',
     term: 'カルデラ',
-    scores: { distinct: 0.306, fame: 0.48, difficulty: 3 },
+    scores: { distinct: 0.302, fame: 0.48, difficulty: 3 },
     image: { key: 'q/bromo.jpg', width: 471, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/bromo.jpg', width: 1400, areaKm2: 1800 } },
   },
   {
@@ -522,7 +522,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '山脈の間の高い盆地に水がたまり、出口をほとんど持たないまま残りました。標高3800mにあり、船が行き来する湖としては世界でいちばん高い場所にあります。',
     term: '高地湖',
-    scores: { distinct: 0.619, fame: 0.8, difficulty: 1 },
+    scores: { distinct: 0.653, fame: 0.8, difficulty: 1 },
     image: { key: 'q/titicaca.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/titicaca.jpg', width: 1400, areaKm2: 180000 } },
   },
   {
@@ -536,7 +536,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '地面が引き裂かれてできた細長い溝に水がたまったので、湖が両岸の山に挟まれてまっすぐ伸びています。深さは1600mを超え、世界でいちばん深い湖です。',
     term: '地溝湖',
-    scores: { distinct: 0.661, fame: 0.901, difficulty: 1 },
+    scores: { distinct: 0.684, fame: 0.901, difficulty: 1 },
     image: { key: 'q/baikal.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/baikal.jpg', width: 1400, areaKm2: 180000 } },
   },
   {
@@ -550,7 +550,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '溶岩が谷をふさいで水の出口が無くなったので、乾いた高原の中に水面が取り残されました。出口がなく蒸発だけで水位が決まるため、塩分が濃くなっています。',
     term: '内陸湖',
-    scores: { distinct: 0.684, fame: 0.694, difficulty: 2 },
+    scores: { distinct: 0.708, fame: 0.694, difficulty: 2 },
     image: { key: 'q/van.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/van.jpg', width: 1400, areaKm2: 90000 } },
   },
   {
@@ -564,7 +564,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '高い山脈の間の窪地に水がたまり、出口を持たないまま残りました。標高1600mにありながら冬も凍らないので、湖面がいつも濃い色に見えます。',
     term: '内陸湖',
-    scores: { distinct: 0.906, fame: 0.675, difficulty: 2 },
+    scores: { distinct: 0.95, fame: 0.675, difficulty: 2 },
     image: { key: 'q/issyk-kul.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/issyk-kul.jpg', width: 1400, areaKm2: 90000 } },
   },
   {
@@ -589,7 +589,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       'めったに水が来ない細長い窪地で、流れ込んだ水がそのまま蒸発して塩を残すので、地面が白く塗られたようになります。まわりが赤いのは、砂の粒が酸化鉄で覆われているからです。',
     term: '塩湖',
-    scores: { distinct: 0.152, fame: 0.363, difficulty: 4 },
+    scores: { distinct: 0.165, fame: 0.363, difficulty: 4 },
     image: { key: 'q/torrens.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/torrens.jpg', width: 1400, areaKm2: 180000 } },
   },
   {
@@ -614,7 +614,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '海面より低い窪地に水が流れ込み、出口が無いまま残ったので、乾いた砂漠の真ん中に平らな水面ができました。岸に沿って並ぶ細かい区画は、その水を引いた畑です。',
     term: '内陸湖',
-    scores: { distinct: 0.774, fame: 0.487, difficulty: 3 },
+    scores: { distinct: 0.767, fame: 0.487, difficulty: 3 },
     image: { key: 'q/salton-sea.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/salton-sea.jpg', width: 1400, areaKm2: 18000 } },
   },
   {
@@ -628,7 +628,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '地面が引き裂かれてできた谷の底に水がたまったので、湖が南北にまっすぐ伸びています。周りに緑がほとんど無いのは、雨がめったに降らない土地だからです。',
     term: '地溝湖',
-    scores: { distinct: 0.455, fame: 0.668, difficulty: 2 },
+    scores: { distinct: 0.424, fame: 0.668, difficulty: 2 },
     image: { key: 'q/turkana.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/turkana.jpg', width: 1400, areaKm2: 180000 } },
   },
   {
@@ -642,7 +642,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '湖が干上がるときに水際が少しずつ内へ下がり、そのたびに塩の縁を残したので、年輪のような縞になりました。中心へ向かって細くなる形から、水がどちらへ縮んでいったかが読めます。',
     term: '干上がった湖',
-    scores: { distinct: 0.162, fame: 0.526, difficulty: 3 },
+    scores: { distinct: 0.137, fame: 0.526, difficulty: 3 },
     image: { key: 'q/lop-nur.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/lop-nur.jpg', width: 1400, areaKm2: 90000 } },
   },
   {
@@ -667,7 +667,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '川が運んできた土砂が河口に積もり続け、流れが行き場を細かく変えるので、水路が網の目のように分かれます。海際の濃い緑は、塩水につかっても育つ林です。',
     term: '三角州',
-    scores: { distinct: 0.457, fame: 0.443, difficulty: 3 },
+    scores: { distinct: 0.462, fame: 0.443, difficulty: 3 },
     image: { key: 'q/ganges-delta.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/ganges-delta.jpg', width: 1400, areaKm2: 180000 } },
   },
   {
@@ -681,7 +681,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '川が海に出るところで流れが遅くなって土砂を落とし、その上に草が茂るので、乾いた周りの中で扇の形だけが緑になります。水路が羽の筋のように並ぶのは、流れが土砂の間を抜けるからです。',
     term: '三角州',
-    scores: { distinct: 0.447, fame: 0.284, difficulty: 4 },
+    scores: { distinct: 0.433, fame: 0.284, difficulty: 4 },
     image: { key: 'q/volga-delta.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/volga-delta.jpg', width: 1400, areaKm2: 90000 } },
   },
   {
@@ -717,7 +717,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '傾きのほとんど無い平地では川が横へ横へと動くので、曲がりが極端になり、やがて根元で切れて取り残されます。三日月の形をした池は、その切り離された跡です。',
     term: '蛇行',
-    scores: { distinct: 0.118, fame: 0.571, difficulty: 3 },
+    scores: { distinct: 0.124, fame: 0.571, difficulty: 3 },
     image: { key: 'q/ucayali.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/ucayali.jpg', width: 1400, areaKm2: 18000 } },
   },
   {
@@ -731,7 +731,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '山から出た川が平地に入って運びきれなくなった砂を落とすので、流れがいくつにも分かれて中州を作ります。乾いた季節には、水より砂のほうが広く見えます。',
     term: '網状流路',
-    scores: { distinct: 0.399, fame: 0.767, difficulty: 2 },
+    scores: { distinct: 0.415, fame: 0.767, difficulty: 2 },
     image: { key: 'q/brahmaputra.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/brahmaputra.jpg', width: 1400, areaKm2: 18000 } },
   },
   {
@@ -776,13 +776,13 @@ window.EARTH_PATCH_QUESTIONS = [
     category: '海岸',
     wikipedia: 'Westfjords',
     answer: { lat: 65.9, lon: -22.5, place: 'ヴェストフィルジル', region: 'アイスランド北西部', country: 'IS' },
-    frame: { areaKm2: 10000, sensor: 'landsat', meters: 30 },
+    frame: { areaKm2: 90000, sensor: 'landsat', meters: 30 },
     headline: '手のひらのように裂けた岬の集まり',
     caption:
       '氷河が谷を深く削ったあと海面が上がって水が入ったので、細長い入り江が指のように並びました。台地の上が平らなのは、氷に削り残された部分です。',
     term: 'フィヨルド',
-    scores: { distinct: 0.651, fame: 0.566, difficulty: 3 },
-    image: { key: 'q/westfjords.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/westfjords.jpg', width: 1400, areaKm2: 90000 } },
+    scores: { distinct: 0.638, fame: 0.566, difficulty: 3 },
+    image: { key: 'q/westfjords.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/westfjords.jpg', width: 1400, areaKm2: 810000 } },
   },
   {
     id: 'norway-fjords',
@@ -790,13 +790,13 @@ window.EARTH_PATCH_QUESTIONS = [
     category: '海岸',
     wikipedia: 'Sognefjord',
     answer: { lat: 61.1, lon: 6.8, place: 'ソグネフィヨルド', region: 'ノルウェー・ヴェストラン県', country: 'NO' },
-    frame: { areaKm2: 10000, sensor: 'landsat', meters: 30 },
+    frame: { areaKm2: 90000, sensor: 'landsat', meters: 30 },
     headline: '雪の高原を細く深く切り裂く入り江',
     caption:
       '氷河が同じ谷を何度も削り下げ、そこへ海が入り込んだので、幅の割に長い入り江ができました。両岸が急に立ち上がるのも、氷が削った跡です。',
     term: 'フィヨルド',
-    scores: { distinct: 0.567, fame: 0.487, difficulty: 3 },
-    image: { key: 'q/norway-fjords.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/norway-fjords.jpg', width: 1400, areaKm2: 90000 } },
+    scores: { distinct: 0.777, fame: 0.487, difficulty: 3 },
+    image: { key: 'q/norway-fjords.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/norway-fjords.jpg', width: 1400, areaKm2: 810000 } },
   },
   {
     id: 'chile-fjords',
@@ -804,13 +804,13 @@ window.EARTH_PATCH_QUESTIONS = [
     category: '海岸',
     wikipedia: 'Patagonian fjords',
     answer: { lat: -49, lon: -74, place: 'チリ南部のフィヨルド', region: 'チリ・マガジャネス州', country: 'CL' },
-    frame: { areaKm2: 20000, sensor: 'landsat', meters: 30 },
+    frame: { areaKm2: 180000, sensor: 'landsat', meters: 30 },
     headline: '陸と海が入り組んで見分けがつかない',
     caption:
       '氷河に削られた谷へ海が入り込み、山の頂だけが島として残ったので、陸と水の境が細かく入り乱れます。西からの湿った風が当たる側なので、雨と雪が多い場所です。',
     term: 'フィヨルド',
-    scores: { distinct: 0.767, fame: 0, difficulty: 5 },
-    image: { key: 'q/chile-fjords.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/chile-fjords.jpg', width: 1400, areaKm2: 180000 } },
+    scores: { distinct: 0.914, fame: 0, difficulty: 5 },
+    image: { key: 'q/chile-fjords.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/chile-fjords.jpg', width: 1400, areaKm2: 1620000 } },
   },
   {
     id: 'shark-bay',
@@ -823,7 +823,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '浅い海の底が白い砂と貝殻で覆われているので、差し込んだ光が返ってきて明るい水色になります。細長い陸が何本も突き出しているのは、南北に伸びる砂の高まりです。',
     term: '浅海',
-    scores: { distinct: 0.628, fame: 0.473, difficulty: 3 },
+    scores: { distinct: 0.652, fame: 0.473, difficulty: 3 },
     image: { key: 'q/shark-bay.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/shark-bay.jpg', width: 1400, areaKm2: 90000 } },
   },
   {
@@ -837,7 +837,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '氷河が置いていった砂と礫を波と沿岸の流れが運び直したので、細長い陸が伸び、先端が内側へ巻きました。幅がどこもほぼ同じなのは、波の力が一様に働いているからです。',
     term: '砂嘴',
-    scores: { distinct: 0.547, fame: 0.487, difficulty: 3 },
+    scores: { distinct: 0.583, fame: 0.487, difficulty: 3 },
     image: { key: 'q/cape-cod.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/cape-cod.jpg', width: 1400, areaKm2: 18000 } },
   },
   {
@@ -851,7 +851,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '地面が引き裂かれてできた二本の割れ目に海が入ったので、その間に三角形の陸が取り残されました。緑がほとんど無いのは、雨がめったに降らない岩山だからです。',
     term: '地溝',
-    scores: { distinct: 0.914, fame: 0.792, difficulty: 2 },
+    scores: { distinct: 0.907, fame: 0.792, difficulty: 2 },
     image: { key: 'q/sinai-south.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/sinai-south.jpg', width: 1400, areaKm2: 90000 } },
   },
   {
@@ -876,7 +876,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '海の中で育った火山が削られ、その谷に海水が入ったので、円い塊から入り江が放射状に伸びる形になりました。平地とつながっているのは、川が運んだ土砂が間を埋めたからです。',
     term: '侵食カルデラ',
-    scores: { distinct: 0.681, fame: 0.284, difficulty: 4 },
+    scores: { distinct: 0.694, fame: 0.284, difficulty: 4 },
     image: { key: 'q/banks-peninsula.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/banks-peninsula.jpg', width: 1400, areaKm2: 18000 } },
   },
   {
@@ -896,13 +896,13 @@ window.EARTH_PATCH_QUESTIONS = [
     category: '砂漠',
     wikipedia: 'Rub\' al Khali',
     answer: { lat: 20, lon: 50, place: 'ルブアルハリ砂漠', region: 'サウジアラビア南部', country: 'SA' },
-    frame: { areaKm2: 20000, sensor: 'landsat', meters: 30 },
+    frame: { areaKm2: 180000, sensor: 'landsat', meters: 30 },
     headline: 'どこまでも同じ向きに並ぶ砂の畝',
     caption:
       '雨がほとんど降らず、砂を止める植物も水も無いので、風の作った模様だけがそのまま残ります。手がかりになる地物が一つも入っていません。',
     term: '砂海',
     scores: { distinct: 0.2, fame: 0.597, difficulty: 3 },
-    image: { key: 'q/rub-al-khali.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/rub-al-khali.jpg', width: 1400, areaKm2: 180000 } },
+    image: { key: 'q/rub-al-khali.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/rub-al-khali.jpg', width: 1400, areaKm2: 1620000 } },
   },
   {
     id: 'taklamakan',
@@ -910,13 +910,13 @@ window.EARTH_PATCH_QUESTIONS = [
     category: '砂漠',
     wikipedia: 'Taklamakan Desert',
     answer: { lat: 38.5, lon: 82, place: 'タクラマカン砂漠', region: '中国・新疆ウイグル自治区', country: 'CN' },
-    frame: { areaKm2: 20000, sensor: 'landsat', meters: 30 },
+    frame: { areaKm2: 180000, sensor: 'landsat', meters: 30 },
     headline: '端の見えない砂の起伏',
     caption:
       '四方を高い山に囲まれて湿った風が入らないので、砂だけが厚く積もった土地が広がります。同じ模様がどこまでも続き、目印になるものがありません。',
     term: '砂海',
-    scores: { distinct: 0.041, fame: 0.702, difficulty: 2 },
-    image: { key: 'q/taklamakan.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/taklamakan.jpg', width: 1400, areaKm2: 180000 } },
+    scores: { distinct: 0.146, fame: 0.702, difficulty: 2 },
+    image: { key: 'q/taklamakan.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/taklamakan.jpg', width: 1400, areaKm2: 1620000 } },
   },
   {
     id: 'simpson-desert',
@@ -924,13 +924,13 @@ window.EARTH_PATCH_QUESTIONS = [
     category: '砂漠',
     wikipedia: 'Simpson Desert',
     answer: { lat: -25, lon: 136.5, place: 'シンプソン砂漠', region: 'オーストラリア・北部準州', country: 'AU' },
-    frame: { areaKm2: 20000, sensor: 'landsat', meters: 30 },
+    frame: { areaKm2: 180000, sensor: 'landsat', meters: 30 },
     headline: '赤い直線が定規のように並ぶ',
     caption:
       '風がほぼ一定の向きに吹き続けるので、砂の高まりが平行に伸び、何十kmも途切れません。赤いのは、砂粒の表面が酸化鉄で覆われているからです。',
     term: '縦列砂丘',
-    scores: { distinct: 0.327, fame: 0.487, difficulty: 3 },
-    image: { key: 'q/simpson-desert.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/simpson-desert.jpg', width: 1400, areaKm2: 180000 } },
+    scores: { distinct: 0.335, fame: 0.487, difficulty: 3 },
+    image: { key: 'q/simpson-desert.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/simpson-desert.jpg', width: 1400, areaKm2: 1620000 } },
   },
   {
     id: 'great-sand-sea',
@@ -938,13 +938,13 @@ window.EARTH_PATCH_QUESTIONS = [
     category: '砂漠',
     wikipedia: 'Great Sand Sea',
     answer: { lat: 26, lon: 26, place: '大砂海', region: 'エジプト西部', country: 'EG' },
-    frame: { areaKm2: 20000, sensor: 'landsat', meters: 30 },
+    frame: { areaKm2: 180000, sensor: 'landsat', meters: 30 },
     headline: '白っぽい地面に長い砂の筋',
     caption:
       '一方向の風が砂を運び続け、その通り道に沿って細長い砂の山が並びました。筋と筋の間で下の岩が見えているので、明るい帯が交互に入ります。',
     term: '砂海',
-    scores: { distinct: 0.1, fame: 0.284, difficulty: 4 },
-    image: { key: 'q/great-sand-sea.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/great-sand-sea.jpg', width: 1400, areaKm2: 180000 } },
+    scores: { distinct: 0.2, fame: 0.284, difficulty: 4 },
+    image: { key: 'q/great-sand-sea.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/great-sand-sea.jpg', width: 1400, areaKm2: 1620000 } },
   },
   {
     id: 'badain-jaran',
@@ -966,13 +966,13 @@ window.EARTH_PATCH_QUESTIONS = [
     category: '砂漠',
     wikipedia: 'White Sands National Park',
     answer: { lat: 32.85, lon: -106.28, place: 'ホワイトサンズ', region: 'アメリカ・ニューメキシコ州', country: 'US' },
-    frame: { areaKm2: 500, sensor: 'landsat', meters: 30 },
+    frame: { areaKm2: 4500, sensor: 'landsat', meters: 30 },
     headline: '盆地の底だけが真っ白',
     caption:
       'まわりの山から溶け出した鉱物が出口の無い盆地にたまり、水が蒸発したあとに白い粒として残りました。それが風に吹き寄せられて砂丘になっています。',
     term: '石膏砂丘',
-    scores: { distinct: 0.51, fame: 0.331, difficulty: 4 },
-    image: { key: 'q/white-sands.jpg', width: 745, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/white-sands.jpg', width: 1400, areaKm2: 4500 } },
+    scores: { distinct: 0.391, fame: 0.331, difficulty: 4 },
+    image: { key: 'q/white-sands.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/white-sands.jpg', width: 1400, areaKm2: 40500 } },
   },
   {
     id: 'namib-coast',
@@ -980,13 +980,13 @@ window.EARTH_PATCH_QUESTIONS = [
     category: '砂漠',
     wikipedia: 'Namib Desert',
     answer: { lat: -23, lon: 14.6, place: 'ナミブ海岸', region: 'ナミビア・エロンゴ州', country: 'NA' },
-    frame: { areaKm2: 10000, sensor: 'landsat', meters: 30 },
+    frame: { areaKm2: 90000, sensor: 'landsat', meters: 30 },
     headline: '砂の赤と海の青が一本の線で接する',
     caption:
       '砂漠が海岸まで届いているので、砂丘の列が波打ち際でいきなり断ち切られます。境に白い帯が見えるのは、絶えず打ち寄せる波の泡です。',
     term: '海岸砂漠',
-    scores: { distinct: 0.824, fame: 0, difficulty: 5 },
-    image: { key: 'q/namib-coast.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/namib-coast.jpg', width: 1400, areaKm2: 90000 } },
+    scores: { distinct: 0.925, fame: 0, difficulty: 5 },
+    image: { key: 'q/namib-coast.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/namib-coast.jpg', width: 1400, areaKm2: 810000 } },
   },
   {
     id: 'tenere',
@@ -994,13 +994,13 @@ window.EARTH_PATCH_QUESTIONS = [
     category: '砂漠',
     wikipedia: 'Ténéré',
     answer: { lat: 18, lon: 11, place: 'テネレ砂漠', region: 'ニジェール北東部', country: 'NE' },
-    frame: { areaKm2: 20000, sensor: 'landsat', meters: 30 },
+    frame: { areaKm2: 180000, sensor: 'landsat', meters: 30 },
     headline: '何も起きていない砂の平面',
     caption:
       '風がひたすら砂をならし続けるので、起伏も色の変化もほとんど生まれません。影が出ないため、写真の中に上下や遠近を示すものがありません。',
     term: '砂漠',
-    scores: { distinct: 0.047, fame: 0.465, difficulty: 3 },
-    image: { key: 'q/tenere.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/tenere.jpg', width: 1400, areaKm2: 180000 } },
+    scores: { distinct: 0.247, fame: 0.465, difficulty: 3 },
+    image: { key: 'q/tenere.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/tenere.jpg', width: 1400, areaKm2: 1620000 } },
   },
   {
     id: 'dasht-e-lut',
@@ -1008,13 +1008,13 @@ window.EARTH_PATCH_QUESTIONS = [
     category: '砂漠',
     wikipedia: 'Dasht-e Lut',
     answer: { lat: 30.5, lon: 58.7, place: 'ルート砂漠', region: 'イラン・ケルマーン州', country: 'IR' },
-    frame: { areaKm2: 20000, sensor: 'landsat', meters: 30 },
+    frame: { areaKm2: 180000, sensor: 'landsat', meters: 30 },
     headline: '風下へ櫛の歯のように削られた地面',
     caption:
       '同じ向きの強い風が砂を含んだまま吹き続け、柔らかい地面を削っていったので、平行な溝と高まりが並びました。地表の温度が世界でも高い部類に入る場所です。',
     term: 'ヤルダン',
-    scores: { distinct: 0.238, fame: 0, difficulty: 5 },
-    image: { key: 'q/dasht-e-lut.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/dasht-e-lut.jpg', width: 1400, areaKm2: 180000 } },
+    scores: { distinct: 0.236, fame: 0, difficulty: 5 },
+    image: { key: 'q/dasht-e-lut.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/dasht-e-lut.jpg', width: 1400, areaKm2: 1620000 } },
   },
   {
     id: 'erg-oriental',
@@ -1022,13 +1022,13 @@ window.EARTH_PATCH_QUESTIONS = [
     category: '砂漠',
     wikipedia: 'Grand Erg Oriental',
     answer: { lat: 30.5, lon: 7.5, place: '東部大砂丘', region: 'アルジェリア東部', country: 'DZ' },
-    frame: { areaKm2: 20000, sensor: 'landsat', meters: 30 },
+    frame: { areaKm2: 180000, sensor: 'landsat', meters: 30 },
     headline: '砂の山が鱗のように重なる',
     caption:
       '風の向きが季節で変わるため、砂の高まりが一方向に伸びきらず、鱗のように入り組んだ形になります。明るい部分が砂の頂、暗い部分が影になった斜面です。',
     term: '砂海',
-    scores: { distinct: 0.119, fame: 0.353, difficulty: 4 },
-    image: { key: 'q/erg-oriental.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/erg-oriental.jpg', width: 1400, areaKm2: 180000 } },
+    scores: { distinct: 0.2, fame: 0.353, difficulty: 4 },
+    image: { key: 'q/erg-oriental.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/erg-oriental.jpg', width: 1400, areaKm2: 1620000 } },
   },
   {
     id: 'perito-moreno',
@@ -1063,7 +1063,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '谷を下ってきた氷が山を抜けたところで行き場を失い、四方へ押し出されて円く広がりました。表面に渦を巻く縞が見えるのは、流れの速さが場所によって違うからです。',
     term: '山麓氷河',
-    scores: { distinct: 0.675, fame: 0.144, difficulty: 5 },
+    scores: { distinct: 0.711, fame: 0.144, difficulty: 5 },
     image: { key: 'q/malaspina.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/malaspina.jpg', width: 1400, areaKm2: 18000 } },
   },
   {
@@ -1083,13 +1083,13 @@ window.EARTH_PATCH_QUESTIONS = [
     category: '氷河',
     wikipedia: 'Baffin Island',
     answer: { lat: 70, lon: -71, place: 'バフィン島東岸', region: 'カナダ・ヌナブト準州', country: 'CA' },
-    frame: { areaKm2: 20000, sensor: 'landsat', meters: 30 },
+    frame: { areaKm2: 180000, sensor: 'landsat', meters: 30 },
     headline: '雪の高原を深く切り込む入り江',
     caption:
       '氷河が高原を谷の形に削り、その底へ海が入り込んだので、白い台地に濃い色の切れ込みが並びます。台地の上が平らなのは、氷に覆われたまま削られなかった部分です。',
     term: 'フィヨルド',
-    scores: { distinct: 0.669, fame: 0.705, difficulty: 2 },
-    image: { key: 'q/baffin-fjords.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/baffin-fjords.jpg', width: 1400, areaKm2: 180000 } },
+    scores: { distinct: 0.872, fame: 0.705, difficulty: 2 },
+    image: { key: 'q/baffin-fjords.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/baffin-fjords.jpg', width: 1400, areaKm2: 1620000 } },
   },
   {
     id: 'yamal',
@@ -1102,7 +1102,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '凍った地面が部分的に融けて陥没し、そこに水がたまるので、丸い池が数えきれないほどできます。傾きがほとんど無いため、水は流れ去らずその場に残ります。',
     term: '熱融解湖',
-    scores: { distinct: 0.356, fame: 0.532, difficulty: 3 },
+    scores: { distinct: 0.343, fame: 0.532, difficulty: 3 },
     image: { key: 'q/yamal.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/yamal.jpg', width: 1400, areaKm2: 90000 } },
   },
   {
@@ -1116,7 +1116,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '両側の斜面から落ちた岩が氷の上に乗ったまま運ばれるので、氷河の表面に流れに沿った縞ができます。まわりが白いのは、雪が積もったままの高い峰です。',
     term: '谷氷河',
-    scores: { distinct: 0.612, fame: 0.353, difficulty: 4 },
+    scores: { distinct: 0.651, fame: 0.353, difficulty: 4 },
     image: { key: 'q/baltoro.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/baltoro.jpg', width: 1400, areaKm2: 18000 } },
   },
   {
@@ -1136,13 +1136,13 @@ window.EARTH_PATCH_QUESTIONS = [
     category: '山地',
     wikipedia: 'Zagros Mountains',
     answer: { lat: 30.5, lon: 51.5, place: 'ザグロス山脈', region: 'イラン・ファールス州', country: 'IR' },
-    frame: { areaKm2: 10000, sensor: 'landsat', meters: 30 },
+    frame: { areaKm2: 90000, sensor: 'landsat', meters: 30 },
     headline: '地面が布のように寄せられた縞',
     caption:
       '二つの大陸がぶつかって地層が横から押され、しわのように折り曲げられたので、細長い尾根と谷が平行に並びます。乾いていて木が少ないため、地層の縞がそのまま見えます。',
     term: '褶曲',
-    scores: { distinct: 0.076, fame: 0.691, difficulty: 2 },
-    image: { key: 'q/zagros.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/zagros.jpg', width: 1400, areaKm2: 90000 } },
+    scores: { distinct: 0.319, fame: 0.691, difficulty: 2 },
+    image: { key: 'q/zagros.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/zagros.jpg', width: 1400, areaKm2: 810000 } },
   },
   {
     id: 'appalachian',
@@ -1150,13 +1150,13 @@ window.EARTH_PATCH_QUESTIONS = [
     category: '山地',
     wikipedia: 'Appalachian Mountains',
     answer: { lat: 40.6, lon: -77.5, place: 'アパラチア山脈', region: 'アメリカ・ペンシルベニア州', country: 'US' },
-    frame: { areaKm2: 2000, sensor: 'landsat', meters: 30 },
+    frame: { areaKm2: 18000, sensor: 'landsat', meters: 30 },
     headline: '森の尾根がジグザグに折り返す',
     caption:
       '折り曲げられた地層のうち硬い層だけが削り残されたので、尾根が地層の向きに沿って伸び、折り返しで急に向きを変えます。濃い緑は尾根を覆う森です。',
     term: '褶曲',
-    scores: { distinct: 0.193, fame: 0.709, difficulty: 2 },
-    image: { key: 'q/appalachian.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/appalachian.jpg', width: 1400, areaKm2: 18000 } },
+    scores: { distinct: 0.307, fame: 0.709, difficulty: 2 },
+    image: { key: 'q/appalachian.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/appalachian.jpg', width: 1400, areaKm2: 162000 } },
   },
   {
     id: 'anti-atlas',
@@ -1164,13 +1164,13 @@ window.EARTH_PATCH_QUESTIONS = [
     category: '山地',
     wikipedia: 'Anti-Atlas',
     answer: { lat: 30, lon: -8, place: 'アンチアトラス', region: 'モロッコ南部', country: 'MA' },
-    frame: { areaKm2: 10000, sensor: 'landsat', meters: 30 },
+    frame: { areaKm2: 90000, sensor: 'landsat', meters: 30 },
     headline: '乾いた地面に描かれた渦と縞',
     caption:
       '古い地層が押し曲げられたあと上から削られたので、その断面が地表に現れ、渦や縞の模様になりました。植物がほとんど無いので、模様が隠れずに残っています。',
     term: '褶曲',
-    scores: { distinct: 0.128, fame: 0.401, difficulty: 3 },
-    image: { key: 'q/anti-atlas.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/anti-atlas.jpg', width: 1400, areaKm2: 90000 } },
+    scores: { distinct: 0.246, fame: 0.401, difficulty: 3 },
+    image: { key: 'q/anti-atlas.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/anti-atlas.jpg', width: 1400, areaKm2: 810000 } },
   },
   {
     id: 'tibesti',
@@ -1178,13 +1178,13 @@ window.EARTH_PATCH_QUESTIONS = [
     category: '山地',
     wikipedia: 'Tibesti Mountains',
     answer: { lat: 20.9, lon: 17.5, place: 'ティベスティ山地', region: 'チャド北部', country: 'TD' },
-    frame: { areaKm2: 20000, sensor: 'landsat', meters: 30 },
+    frame: { areaKm2: 180000, sensor: 'landsat', meters: 30 },
     headline: '砂の中から黒く盛り上がる山塊',
     caption:
       '砂漠の真ん中で噴火が繰り返され、黒い岩が積もって周囲より高くなりました。明るい砂に囲まれているので、輪郭がはっきり分かれます。',
     term: '火山地形',
-    scores: { distinct: 0.136, fame: 0.487, difficulty: 3 },
-    image: { key: 'q/tibesti.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/tibesti.jpg', width: 1400, areaKm2: 180000 } },
+    scores: { distinct: 0.327, fame: 0.487, difficulty: 3 },
+    image: { key: 'q/tibesti.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/tibesti.jpg', width: 1400, areaKm2: 1620000 } },
   },
   {
     id: 'roraima',
@@ -1203,13 +1203,13 @@ window.EARTH_PATCH_QUESTIONS = [
     category: '山地',
     wikipedia: 'Drakensberg',
     answer: { lat: -29.4, lon: 29.3, place: 'ドラケンスバーグ', region: '南アフリカ・クワズール・ナタール州', country: 'ZA' },
-    frame: { areaKm2: 2000, sensor: 'landsat', meters: 30 },
+    frame: { areaKm2: 18000, sensor: 'landsat', meters: 30 },
     headline: '高原の縁が壁のように切れ落ちる',
     caption:
       '硬い溶岩の層が上に載っているため、その下の柔らかい層だけが削られて後退し、縁が崖として残りました。崖の手前に細かい谷が刻まれているのは、いまも削られている途中だからです。',
     term: '断崖',
-    scores: { distinct: 0.368, fame: 0.625, difficulty: 2 },
-    image: { key: 'q/drakensberg.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/drakensberg.jpg', width: 1400, areaKm2: 18000 } },
+    scores: { distinct: 0.374, fame: 0.625, difficulty: 2 },
+    image: { key: 'q/drakensberg.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/drakensberg.jpg', width: 1400, areaKm2: 162000 } },
   },
   {
     id: 'flinders',
@@ -1217,13 +1217,13 @@ window.EARTH_PATCH_QUESTIONS = [
     category: '山地',
     wikipedia: 'Flinders Ranges',
     answer: { lat: -31.35, lon: 138.6, place: 'フリンダース山脈', region: 'オーストラリア・南オーストラリア州', country: 'AU' },
-    frame: { areaKm2: 2000, sensor: 'landsat', meters: 30 },
+    frame: { areaKm2: 18000, sensor: 'landsat', meters: 30 },
     headline: '乾いた大地に浮かぶ細長い輪の尾根',
     caption:
       '折り曲げられた地層の硬い部分だけが削り残されたので、盆地を囲む輪の形の尾根ができました。内側が外より低いのは、柔らかい層が先に削られたからです。',
     term: '侵食盆地',
-    scores: { distinct: 0.363, fame: 0.271, difficulty: 4 },
-    image: { key: 'q/flinders.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/flinders.jpg', width: 1400, areaKm2: 18000 } },
+    scores: { distinct: 0.316, fame: 0.271, difficulty: 4 },
+    image: { key: 'q/flinders.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/flinders.jpg', width: 1400, areaKm2: 162000 } },
   },
   {
     id: 'ahaggar',
@@ -1242,13 +1242,13 @@ window.EARTH_PATCH_QUESTIONS = [
     category: '山地',
     wikipedia: 'Mount Kenya',
     answer: { lat: -0.15, lon: 37.3, place: 'ケニア山', region: 'ケニア中部', country: 'KE' },
-    frame: { areaKm2: 200, sensor: 'landsat', meters: 30 },
+    frame: { areaKm2: 1800, sensor: 'landsat', meters: 30 },
     headline: '緑の輪の真ん中にある尖った白い頂',
     caption:
       '火山の柔らかい部分が削られて硬い芯だけが残ったので、頂が細く尖りました。周りが緑の輪に見えるのは、高さによって育つ植物が変わるからです。',
     term: '氷食尖峰',
-    scores: { distinct: 0.397, fame: 0.675, difficulty: 2 },
-    image: { key: 'q/mount-kenya.jpg', width: 471, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/mount-kenya.jpg', width: 1400, areaKm2: 1800 } },
+    scores: { distinct: 0.245, fame: 0.675, difficulty: 2 },
+    image: { key: 'q/mount-kenya.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/mount-kenya.jpg', width: 1400, areaKm2: 16200 } },
   },
   {
     id: 'paris',
@@ -1261,7 +1261,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '川を渡れる場所から街が広がり、外へ外へと環状に道が足されたので、丸い形になりました。中心を大きく蛇行する線が、街を貫く川です。',
     term: '環状市街',
-    scores: { distinct: 0.394, fame: 1, difficulty: 1 },
+    scores: { distinct: 0.404, fame: 1, difficulty: 1 },
     image: { key: 'q/paris.jpg', width: 745, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/paris.jpg', width: 1400, areaKm2: 4500 } },
   },
   {
@@ -1275,7 +1275,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '浅い海を埋めて土地を作ってきたので、自然の海岸では起こらない直線と直角が水際に並びます。湾を囲む灰色は、海際まで途切れず続く市街地です。',
     term: '埋立地',
-    scores: { distinct: 0.789, fame: 0.538, difficulty: 3 },
+    scores: { distinct: 0.822, fame: 0.538, difficulty: 3 },
     image: { key: 'q/tokyo-bay.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/tokyo-bay.jpg', width: 1400, areaKm2: 18000 } },
   },
   {
@@ -1289,7 +1289,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '出口の無い高い盆地に人が集まり続けたので、平らな底がすべて市街地で埋まりました。灰色が急に途切れる線が、盆地を囲む山の裾です。',
     term: '盆地都市',
-    scores: { distinct: 0.429, fame: 1, difficulty: 1 },
+    scores: { distinct: 0.446, fame: 1, difficulty: 1 },
     image: { key: 'q/mexico-city.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/mexico-city.jpg', width: 1400, areaKm2: 18000 } },
   },
   {
@@ -1303,7 +1303,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '水の届く範囲にしか人が住めないので、川沿いの緑の帯が終わるところで街もぴたりと止まります。境目が定規で引いたようにまっすぐなのは、そのためです。',
     term: '沖積平野',
-    scores: { distinct: 0.513, fame: 1, difficulty: 1 },
+    scores: { distinct: 0.505, fame: 1, difficulty: 1 },
     image: { key: 'q/cairo.jpg', width: 745, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/cairo.jpg', width: 1400, areaKm2: 4500 } },
   },
   {
@@ -1317,7 +1317,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '碁盤の目に区切った区画を平地の端まで並べていったので、山の斜面にぶつかるところで模様が急に終わります。濃い色の面が太平洋です。',
     term: '盆地都市',
-    scores: { distinct: 0.616, fame: 1, difficulty: 1 },
+    scores: { distinct: 0.65, fame: 1, difficulty: 1 },
     image: { key: 'q/los-angeles.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/los-angeles.jpg', width: 1400, areaKm2: 18000 } },
   },
   {
@@ -1331,7 +1331,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '中心の砦から道が四方へ伸び、それを何重もの環状の道が結んだので、蜘蛛の巣のような形になりました。曲がりくねった細い線は、街を抜ける川です。',
     term: '環状道路',
-    scores: { distinct: 0.383, fame: 1, difficulty: 1 },
+    scores: { distinct: 0.382, fame: 1, difficulty: 1 },
     image: { key: 'q/moscow.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/moscow.jpg', width: 1400, areaKm2: 18000 } },
   },
   {
@@ -1345,7 +1345,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '決められた大きさの区画を海と山の間に隙間なく敷き詰めたので、中心部だけ模様の目が細かくそろっています。模様が止まるところが、背後の山の裾です。',
     term: '街区',
-    scores: { distinct: 0.893, fame: 0.966, difficulty: 1 },
+    scores: { distinct: 0.937, fame: 0.966, difficulty: 1 },
     image: { key: 'q/barcelona.jpg', width: 471, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/barcelona.jpg', width: 1400, areaKm2: 1800 } },
   },
   {
@@ -1370,7 +1370,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '浅い水域を堤で囲んで水を抜き、そこを畑として区切ったので、陸の輪郭も畑の境もまっすぐになりました。水面との境に自然の曲線がありません。',
     term: '干拓地',
-    scores: { distinct: 0.535, fame: 0.745, difficulty: 2 },
+    scores: { distinct: 0.532, fame: 0.745, difficulty: 2 },
     image: { key: 'q/flevoland.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/flevoland.jpg', width: 1400, areaKm2: 18000 } },
   },
   {
@@ -1384,7 +1384,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '乾いた盆地に一から区画を引いて街を広げたので、まわりの地形と関係なく四角い縁を持ちます。外側に緑がほとんど無いのは、雨がめったに降らないからです。',
     term: '計画都市',
-    scores: { distinct: 0.408, fame: 0.903, difficulty: 1 },
+    scores: { distinct: 0.428, fame: 0.903, difficulty: 1 },
     image: { key: 'q/las-vegas.jpg', width: 745, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/las-vegas.jpg', width: 1400, areaKm2: 4500 } },
   },
   {
@@ -1409,7 +1409,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '地下深くの水を汲み上げ、腕を回して散水する仕組みで畑を作ったので、緑が正確な円になります。円の大きさがそろっているのは、同じ長さの腕を使っているからです。',
     term: 'センターピボット',
-    scores: { distinct: 0.255, fame: 0.331, difficulty: 4 },
+    scores: { distinct: 0.245, fame: 0.331, difficulty: 4 },
     image: { key: 'q/kufra.jpg', width: 745, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/kufra.jpg', width: 1400, areaKm2: 4500 } },
   },
   {
@@ -1423,7 +1423,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '川の水が届く幅にしか作物が育たないので、乾いた土地の中に細長い緑が一本だけ残ります。帯の縁がはっきりしているのは、水の届く範囲がそこで終わるからです。',
     term: '沖積平野',
-    scores: { distinct: 0.602, fame: 1, difficulty: 1 },
+    scores: { distinct: 0.649, fame: 1, difficulty: 1 },
     image: { key: 'q/nile-valley.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/nile-valley.jpg', width: 1400, areaKm2: 18000 } },
   },
   {
@@ -1437,7 +1437,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '遠くの川から水路で水を引いて畑にしたので、水の来る範囲だけがくっきり四角く緑になりました。区画の外はすぐに砂の色に戻ります。',
     term: '灌漑農地',
-    scores: { distinct: 0.575, fame: 0.102, difficulty: 5 },
+    scores: { distinct: 0.621, fame: 0.102, difficulty: 5 },
     image: { key: 'q/imperial-valley.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/imperial-valley.jpg', width: 1400, areaKm2: 18000 } },
   },
   {
@@ -1451,7 +1451,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '畑の上を白いシートで覆う栽培が谷いっぱいに広がったので、日光が反射して地面が白く光ります。海と山に挟まれた平地だけが、この色になっています。',
     term: '施設園芸',
-    scores: { distinct: 0.666, fame: 0.723, difficulty: 2 },
+    scores: { distinct: 0.708, fame: 0.723, difficulty: 2 },
     image: { key: 'q/almeria.jpg', width: 471, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/almeria.jpg', width: 1400, areaKm2: 1800 } },
   },
   {
@@ -1465,7 +1465,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '二つの川が合流する間の土地に水路を引いたので、川と川の間だけが扇の形に緑になりました。扇の内側に細かい線が並ぶのは、水を配る水路です。',
     term: '灌漑計画',
-    scores: { distinct: 0.375, fame: 0, difficulty: 5 },
+    scores: { distinct: 0.366, fame: 0, difficulty: 5 },
     image: { key: 'q/gezira.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/gezira.jpg', width: 1400, areaKm2: 18000 } },
   },
   {
@@ -1479,7 +1479,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '山脈の雪解け水を平地に引いて畑にしたので、盆地の底が一様に区画で埋まりました。四角が向きをそろえているのは、水路と道に沿って区切ったからです。',
     term: '灌漑農地',
-    scores: { distinct: 0.445, fame: 0.458, difficulty: 3 },
+    scores: { distinct: 0.453, fame: 0.458, difficulty: 3 },
     image: { key: 'q/central-valley.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/central-valley.jpg', width: 1400, areaKm2: 90000 } },
   },
   {
@@ -1504,7 +1504,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '風が細かい砂を運び去って重い礫だけが残ったので、起伏も植物もない面が広がります。目印になるものが無く、隊商が長らく避けてきた場所です。',
     term: '礫砂漠',
-    scores: { distinct: 0.023, fame: 0.229, difficulty: 4 },
+    scores: { distinct: 0, fame: 0.229, difficulty: 4 },
     image: { key: 'q/tanezrouft.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/tanezrouft.jpg', width: 1400, areaKm2: 180000 } },
   },
   {
@@ -1518,7 +1518,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '寒さで育つ木の種類が限られ、同じ森が一様に広がるので、どこを切り取っても同じ模様になります。細い線が通っているのは、森を抜ける川です。',
     term: 'タイガ',
-    scores: { distinct: 0.182, fame: 0.56, difficulty: 3 },
+    scores: { distinct: 0.156, fame: 0.56, difficulty: 3 },
     image: { key: 'q/siberia-taiga.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/siberia-taiga.jpg', width: 1400, areaKm2: 180000 } },
   },
   {
@@ -1532,7 +1532,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '一年中雨が多く、同じ高さの森が途切れずに続くので、模様の変化がほとんど出ません。手がかりは、森の中を曲がりながら抜ける川だけです。',
     term: '熱帯雨林',
-    scores: { distinct: 0.175, fame: 0.698, difficulty: 2 },
+    scores: { distinct: 0.179, fame: 0.698, difficulty: 2 },
     image: { key: 'q/amazon-interior.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/amazon-interior.jpg', width: 1400, areaKm2: 180000 } },
   },
   {
@@ -1546,7 +1546,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '傾きがほとんど無いため水が流れ去らず、地面と沼が入り混じったまま広がります。世界でも指折りの広さの平地です。',
     term: '湿原',
-    scores: { distinct: 0.297, fame: 0.577, difficulty: 3 },
+    scores: { distinct: 0.278, fame: 0.577, difficulty: 3 },
     image: { key: 'q/west-siberian-plain.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/west-siberian-plain.jpg', width: 1400, areaKm2: 180000 } },
   },
   {
@@ -1560,7 +1560,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '地面が石灰岩で、降った雨がすぐ地下へ染み込んでしまうので、木が根を張れません。まっすぐ切れた縁は、海に落ちる崖です。',
     term: 'カルスト平原',
-    scores: { distinct: 0.735, fame: 0.41, difficulty: 3 },
+    scores: { distinct: 0.727, fame: 0.41, difficulty: 3 },
     image: { key: 'q/nullarbor.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/nullarbor.jpg', width: 1400, areaKm2: 180000 } },
   },
   {
@@ -1574,7 +1574,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '砂に覆われていて水が地表に残らないので、丈の低い草がまばらに生えるだけになります。起伏がほとんど無く影も出ないため、模様が薄くなります。',
     term: '半砂漠',
-    scores: { distinct: 0.223, fame: 0.745, difficulty: 2 },
+    scores: { distinct: 0.227, fame: 0.745, difficulty: 2 },
     image: { key: 'q/kalahari.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/kalahari.jpg', width: 1400, areaKm2: 180000 } },
   },
   {
@@ -1588,7 +1588,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       '柔らかい岩が風に削り取られ続けて地面が下がったので、周りより低い盆地ができました。底の一部が明るいのは、地下水がしみ出して塩が残った跡です。',
     term: '構造低地',
-    scores: { distinct: 0.266, fame: 0.435, difficulty: 3 },
+    scores: { distinct: 0.239, fame: 0.435, difficulty: 3 },
     image: { key: 'q/qattara.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/qattara.jpg', width: 1400, areaKm2: 180000 } },
   },
   {
@@ -1602,7 +1602,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       'かつて湖だった窪地が干上がり、残った塩と泥が乾くたびに白く固まります。周りと高さがほとんど変わらないので、色の差だけが境目になります。',
     term: '塩性平原',
-    scores: { distinct: 0.369, fame: 0.342, difficulty: 4 },
+    scores: { distinct: 0.395, fame: 0.342, difficulty: 4 },
     image: { key: 'q/makgadikgadi.jpg', width: 1400, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/makgadikgadi.jpg', width: 1400, areaKm2: 180000 } },
   },
   {
@@ -1616,7 +1616,7 @@ window.EARTH_PATCH_QUESTIONS = [
     caption:
       'まわりの柔らかい岩が削られて無くなったあとも、硬い岩の塊だけが削り残されたので、平らな地面から一つだけ突き出しています。長さは3kmほどです。',
     term: '残丘',
-    scores: { distinct: 0.146, fame: 0.702, difficulty: 2 },
+    scores: { distinct: 0.176, fame: 0.702, difficulty: 2 },
     image: { key: 'q/uluru.jpg', width: 471, date: '2000-12-01', credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.', context: { key: 'ctx/uluru.jpg', width: 1400, areaKm2: 1800 } },
   },
 

@@ -24,6 +24,8 @@ const args = process.argv.slice(2);
 const perPage = Number(args.find((a) => a.startsWith('--per='))?.slice('--per='.length) ?? 12);
 const onlyArg = args.find((a) => a.startsWith('--only='))?.slice('--only='.length);
 const montage = args.includes('--montage');
+const idsArg = args.find((a) => a.startsWith('--ids='))?.slice('--ids='.length);
+const ids = idsArg ? new Set(idsArg.split(',')) : null;
 
 function loadGlobal(path, name) {
   if (!existsSync(inRoot(path))) return null;
@@ -60,6 +62,7 @@ let rows = questions.map((question) => {
 
 if (onlyArg === 'undecided') rows = rows.filter((r) => r.status.key === 'undecided');
 if (onlyArg === 'adopted') rows = rows.filter((r) => r.status.key === 'adopted');
+if (ids) rows = rows.filter((r) => ids.has(r.question.id));
 
 // 未決定を先に、分野ごとにまとめ、機械が落としたものは後ろへ。
 const order = { undecided: 0, adopted: 1, rejected: 2 };

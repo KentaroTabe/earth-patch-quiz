@@ -26,7 +26,12 @@ export function luma(r, g, b) {
  * 縮小すると縞が平均化されて消えるので、下見より高い解像度で測る必要がある
  * （quality.scanlinePx）。しきい値は既知の採用・不採用14枚で較正した。
  * 重症のもの（マナウス3.6% / レンソイス3.7% / ナトロン3.9%）だけが 2% を超え、
- * 採用したものは最大でも1.3%だった。**軽症は拾えない。目視は省けない。**
+ * 採用したものは最大でも1.3%だった。
+ *
+ * **拾えないものが二つある。目視は省けない。**
+ *  - 軽症の縞
+ *  - 幅の広い帯。±2画素で比べているので、帯が4画素より太いと両端も帯の内側に入る
+ *    （バダインジャラン砂漠の欠測がこれで、機械は 0.2% としか出さなかった）
  */
 export function scanlineShare(image) {
   const { width, height, rgb } = image;
@@ -34,16 +39,29 @@ export function scanlineShare(image) {
   for (let i = 0; i < width * height; i++) {
     gray[i] = luma(rgb[i * 3], rgb[i * 3 + 1], rgb[i * 3 + 2]);
   }
-  let hits = 0;
+
+  // 縞は横にも縦にも入る。片方だけ見ると取り逃す。
+  let horizontal = 0;
   for (let y = 2; y < height - 2; y++) {
     for (let x = 0; x < width; x++) {
       const here = gray[y * width + x];
-      const above = gray[(y - 2) * width + x];
-      const below = gray[(y + 2) * width + x];
-      if (Math.abs(above - below) < 12 && Math.abs(here - (above + below) / 2) > 35) hits++;
+      const a = gray[(y - 2) * width + x];
+      const b = gray[(y + 2) * width + x];
+      if (Math.abs(a - b) < 12 && Math.abs(here - (a + b) / 2) > 35) horizontal++;
     }
   }
-  return hits / (width * height);
+
+  let vertical = 0;
+  for (let y = 0; y < height; y++) {
+    for (let x = 2; x < width - 2; x++) {
+      const here = gray[y * width + x];
+      const a = gray[y * width + x - 2];
+      const b = gray[y * width + x + 2];
+      if (Math.abs(a - b) < 12 && Math.abs(here - (a + b) / 2) > 35) vertical++;
+    }
+  }
+
+  return Math.max(horizontal, vertical) / (width * height);
 }
 
 /** 下見用。雲だらけ・欠測だらけの枠を落とす（仕様 §5.4 の isCloudOrVoid）。 */
