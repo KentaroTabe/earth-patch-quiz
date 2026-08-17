@@ -204,6 +204,9 @@
     map.pins = { guess: null, answer: null };
     map.interactive = true;
     map.resetView();
+    // 終了画面のあいだ地図は非表示で、その間に窓の大きさが変わっても測り直せない。
+    // 出題画面に戻ったここで測り直す。
+    map.resize();
   }
 
   function basename(key) {

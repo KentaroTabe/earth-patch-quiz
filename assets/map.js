@@ -90,6 +90,9 @@
   };
 
   WorldMap.prototype.unproject = function (x, y) {
+    // 地図が隠れていると幅が 0 になる。そのまま割ると座標が NaN になり、
+    // 距離も得点も NaN のまま結果画面まで流れてしまう。
+    if (!this.width || !this.height) return null;
     return {
       lon: (x / this.width) * this.lonSpan() + this.mapCfg.lonMin,
       lat: this.mapCfg.latMax - (y / this.height) * this.latSpan(),
@@ -342,9 +345,11 @@
       const moved = self.drag.moved;
       self.drag = null;
       if (moved || !self.interactive) return;
+      if (!self.width || !self.height) return;
       const point = self.toMapSpace(event.clientX, event.clientY);
       if (point.x < 0 || point.y < 0 || point.x > self.width || point.y > self.height) return;
       const coord = self.unproject(point.x, point.y);
+      if (!coord) return;
       coord.lon = ((coord.lon + 540) % 360) - 180;
       self.pins.guess = coord;
       self.draw();
