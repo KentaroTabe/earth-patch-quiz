@@ -38,6 +38,11 @@
     "earthRadiusKm": 6371,
     "degPerKmLat": 0.008993216059
   },
+  "context": {
+    "$comment": "結果画面に出す広域画像。出題した枠の一辺の何倍にするか。3 なら面積は9倍で、真ん中の1/3が出題した範囲になる。",
+    "sideScale": 3,
+    "prefix": "ctx/"
+  },
   "distinct": {
     "$comment": "仕様 §5.3。重みは目視ラベル100枚で調整する前の暫定値。docs/SCORING.md 参照。",
     "weights": {
@@ -96,8 +101,8 @@
     "minStdDev": 4
   },
   "output": {
-    "jpegQuality": 80,
-    "imageDir": "img/q",
+    "$comment": "画像の置き場所。ローカルは imageRoot + キー（例 img/q/richat.jpg）、R2 は publicBase + キー。",
+    "imageRoot": "img",
     "manifestPath": "img/manifest.js",
     "workDir": "work"
   },

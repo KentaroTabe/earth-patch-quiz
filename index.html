@@ -15,12 +15,26 @@
   <p class="progress" id="progress" aria-live="polite"></p>
 </header>
 
-<main id="main">
+<!-- 広い画面では左に画像、右に地図と解説。狭い画面では縦に積む。 -->
+<main id="main" class="stage">
 
+ <div class="col-image">
   <!-- 問題画像。引き伸ばさないので、枠に応じて表示幅が変わる（仕様 §5.4）。 -->
   <figure class="photo" id="photo">
     <img id="photo-img" alt="衛星画像">
   </figure>
+
+  <!-- 結果画面の広域画像。真ん中の枠が、さっき出した範囲。 -->
+  <figure class="context" id="context">
+    <div class="context-frame">
+      <img id="context-img" alt="広い範囲の衛星画像">
+      <div class="context-box" id="context-box"></div>
+    </div>
+    <figcaption id="context-caption"></figcaption>
+  </figure>
+ </div>
+
+ <div class="col-answer">
 
   <!-- 回答用の地図。陸地と国境の線だけ。衛星画像は使わない（原則2）。 -->
   <div class="mapstage">
@@ -64,6 +78,8 @@
     <p class="credit" id="credit"></p>
     <button type="button" class="primary" id="next-btn">次へ</button>
   </div>
+
+ </div>
 
 </main>
 

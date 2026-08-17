@@ -9,8 +9,20 @@
   --ink-faint: #6c7481;
   --accent: #f0b429;
   --answer: #57c07f;
+  --frame: #ffffff;
   --radius: 6px;
   --page: 720px;
+  --gap: 18px;
+  --photo-max-height: 46vh;
+}
+
+/* 広い画面では左に画像、右に地図と解説を置く。縦に積むより一度に見渡せる。 */
+@media (min-width: 900px) {
+  :root {
+    --page: 1240px;
+    --gap: 28px;
+    --photo-max-height: 68vh;
+  }
 }
 
 * {
@@ -45,7 +57,10 @@ body[data-phase='summary'] main {
 body:not([data-phase='summary']) #screen-summary {
   display: none;
 }
-body[data-phase='result'] .photo {
+
+/* 出題中は問題の枠だけ、結果では広域だけを出す。場所は同じ左の列。 */
+body[data-phase='result'] .photo,
+body:not([data-phase='result']) .context {
   display: none;
 }
 
@@ -82,6 +97,28 @@ main,
   padding: 0 16px 40px;
 }
 
+/* 終了画面は読み物なので、広い画面でも横に伸ばさない。 */
+.summary {
+  max-width: 760px;
+}
+
+.stage {
+  display: grid;
+  gap: var(--gap);
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  .stage {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+.col-image,
+.col-answer {
+  min-width: 0;
+}
+
 /* ── 問題画像 ───────────────────────────────── */
 /* 引き伸ばさない。枠が小さい問題は小さいまま出す（仕様 §5.4）。 */
 .photo {
@@ -101,7 +138,48 @@ main,
   width: auto;
   height: auto;
   max-width: 100%;
-  max-height: 46vh;
+  max-height: var(--photo-max-height);
+}
+
+/* ── 結果画面の広域画像 ─────────────────────────── */
+/* 出した枠がどこに収まっていたかを見せる。納得感はここで出る。 */
+.context {
+  margin: 0 0 16px;
+  text-align: center;
+}
+
+.context-frame {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+  max-width: 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.context-frame img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: var(--photo-max-height);
+}
+
+/* 出題した枠。左上と大きさは JS が入れる（1 / sideScale）。 */
+.context-box {
+  position: absolute;
+  border: 2px solid var(--frame);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+}
+
+.context figcaption {
+  margin-top: 8px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--ink-faint);
+  text-align: left;
 }
 
 .photo.broken::after {

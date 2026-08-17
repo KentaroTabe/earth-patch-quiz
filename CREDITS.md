@@ -12,7 +12,7 @@
 - 提供: NASA EOSDIS Global Imagery Browse Services (GIBS)
 - 条件: 米国政府の著作物。出典表記のうえ自由に使える
 
-現在の25枚はすべてこの取得元。内訳は `img/manifest.js` を参照。配信は Cloudflare R2 から行っている。
+現在の50枚（出題する枠25枚と、結果画面に出す広域25枚）はすべてこの取得元。内訳は `img/manifest.js` を参照。配信は Cloudflare R2 から行っている。
 
 ---
 

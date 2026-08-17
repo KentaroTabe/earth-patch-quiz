@@ -35,6 +35,7 @@ JSON ではなくグローバル変数を代入する `.js` にしてあるの�
     width: 1400,
     date: '2000-12-01',
     credit: 'NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.',
+    context: { key: 'ctx/richat.jpg', width: 1400, areaKm2: 18000 },
   },
 }
 ```
@@ -51,7 +52,11 @@ JSON ではなくグローバル変数を代入する `.js` にしてあるの�
 | `term` | 人 | 用語 |
 | `reject` | 人 | `adopted: false` のときの理由 |
 | `scores` | `npm run score` | 弁別性・知名度・難易度 |
-| `image` | `npm run fetch` | 画像の情報。値は `img/manifest.js` と一致していないと検査に落ちる |
+| `image` | `npm run fetch` | 出題する枠の画像。値は `img/manifest.js` と一致していないと検査に落ちる |
+| `image.context` | `npm run fetch` | 結果画面に出す広域画像。一辺は枠の `context.sideScale` 倍 |
+
+`scores` と `image` は機械が書く。手で写すと必ずどこかでずれるので、
+`npm run score -- --write` と `npm run fetch -- --write-questions` を使う。
 
 `wikipedia` と `reject` は仕様 §6.1 に無い項目。前者は知名度の実測に、後者は不採用の理由を残すために足した。
 
@@ -131,7 +136,9 @@ npm run serve      # http://localhost:4173/work/contact-sheet.html
 npm run fame -- <id>
 # 6. 全問を採点し直して scores を書き戻す（難易度は相対値なので既存の問題も動く）
 npm run score -- --write
-# 7. 検査する
+# 7. image を実測値で埋める
+npm run fetch -- --verify-only --write-questions
+# 8. 検査する
 npm run check
 ```
 

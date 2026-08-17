@@ -49,7 +49,7 @@ const escape = (value) =>
 const cards = rows
   .map(({ question, entry, bounds, status }) => {
     const src = entry
-      ? relative(dirname(outPath), inRoot(pipeline.output.imageDir, `${question.id}.jpg`))
+      ? relative(dirname(outPath), inRoot(pipeline.output.imageRoot, question.image.key))
       : '';
     const scores = question.scores ?? {};
     return `<figure class="card ${status.key}">

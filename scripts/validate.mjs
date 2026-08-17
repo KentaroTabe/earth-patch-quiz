@@ -66,6 +66,34 @@ for (const question of questions.filter((q) => q.adopted === false)) {
 
 const adopted = questions.filter((q) => q.adopted !== false);
 const servesImagesRemotely = /^https?:\/\//.test(siteConfig.imageBase);
+
+/** 1枚ぶんの画像情報が manifest と食い違っていないか見る。 */
+function checkImage(id, image, prefix) {
+  if (!image?.key) {
+    fail(id, `image.${prefix}key がありません`);
+    return;
+  }
+  const entry = manifest[image.key];
+  if (!entry) {
+    fail(id, `img/manifest.js に ${image.key} がありません`);
+    return;
+  }
+  if (entry.width !== image.width) {
+    fail(id, `image.${prefix}width が manifest と違います（${image.width} / ${entry.width}）`);
+  }
+  if (image.date !== undefined && entry.date !== image.date) {
+    fail(id, `image.${prefix}date が manifest と違います（${image.date} / ${entry.date}）`);
+  }
+  if (image.credit !== undefined && entry.credit !== image.credit) {
+    fail(id, `image.${prefix}credit が manifest と違います`);
+  }
+  // 画像を外部（R2）から配信しているときは、ここでファイルの有無は見ない。
+  // 実物が読めるかは npm run fetch -- --verify-only が確かめる。
+  if (!servesImagesRemotely && !existsSync(inRoot(pipeline.output.imageRoot, image.key))) {
+    fail(id, `画像ファイルがありません（${pipeline.output.imageRoot}/${image.key}）`);
+  }
+}
+
 if (servesImagesRemotely) {
   warn(
     '(全体)',
@@ -116,27 +144,19 @@ for (const question of adopted) {
     fail(id, `difficulty が ${pipeline.difficulty.min}〜${pipeline.difficulty.max} の整数ではありません（${difficulty}）`);
   }
 
-  // 画像とその出典
-  const entry = manifest[question.image.key];
-  if (!entry) {
-    fail(id, `img/manifest.js に ${question.image.key} がありません`);
+  // 画像とその出典。出題する枠と、結果画面に出す広域の2枚。
+  checkImage(id, question.image, '');
+  if (!question.image.context) {
+    fail(id, 'image.context がありません（結果画面に出す広域画像）');
   } else {
-    if (entry.width !== question.image.width) {
-      fail(id, `image.width が manifest と違います（${question.image.width} / ${entry.width}）`);
-    }
-    if (entry.date !== question.image.date) {
-      fail(id, `image.date が manifest と違います（${question.image.date} / ${entry.date}）`);
-    }
-    if (entry.credit !== question.image.credit) {
-      fail(id, 'image.credit が manifest と違います');
-    }
-    // 画像を外部（R2）から配信しているときは、ここでファイルの有無は見ない。
-    // 実物が読めるかは npm run fetch -- --verify-only が確かめる。
-    if (!servesImagesRemotely) {
-      const localPath = inRoot(pipeline.output.imageDir, `${question.id}.jpg`);
-      if (!existsSync(localPath)) {
-        fail(id, `画像ファイルがありません（${pipeline.output.imageDir}/${question.id}.jpg）`);
-      }
+    checkImage(id, question.image.context, 'context.');
+    const expected = question.frame.areaKm2 * pipeline.context.sideScale ** 2;
+    if (question.image.context.areaKm2 !== expected) {
+      fail(
+        id,
+        `image.context.areaKm2 が ${question.image.context.areaKm2} ですが、` +
+          `枠 ${question.frame.areaKm2} km² の ${pipeline.context.sideScale} 倍なら ${expected} です`,
+      );
     }
   }
   const credit = question.image.credit ?? '';

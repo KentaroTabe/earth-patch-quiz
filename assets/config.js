@@ -7,12 +7,22 @@ window.EARTH_PATCH_CONFIG = {
   // Cloudflare R2。アップロードは npm run fetch が行い、
   // 公開URLから読めるかもそこで確認している（docs/IMAGERY.md §5）。
   //
+  // 末尾の / まで書く。画像の URL は これ + image.key（例 q/richat.jpg）。
+  //
   // いまは r2.dev の公開エンドポイントを使っている。これは検証用で
   // レート制限があり、超えると 429 が返る（仕様 §4.2）。
   // 五人に触ってもらう段階を越えるなら、バケットにカスタムドメインを
   // 割り当てて、この1行を差し替えること。
-  //   imageBase: "https://img.example.com/q/"
-  imageBase: 'https://pub-d251133e7b3e43d6a089f249b360ac5a.r2.dev/q/',
+  //   imageBase: "https://img.example.com/"
+  imageBase: 'https://pub-d251133e7b3e43d6a089f249b360ac5a.r2.dev/',
+
+  // ── 結果画面の広域画像 ────────────────────────────
+  // 出題した枠の一辺の何倍の広さを見せるか。config/pipeline.json の
+  // context.sideScale と必ず同じ値にする。画像の中央に重ねる枠の
+  // 大きさ（1/sideScale）もこの値から出す。
+  context: {
+    sideScale: 3,
+  },
 
   // ── 1セッション ──────────────────────────────────
   set: {

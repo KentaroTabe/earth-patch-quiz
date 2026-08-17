@@ -34,6 +34,10 @@
     headline: el('headline'),
     caption: el('caption'),
     term: el('term'),
+    context: el('context'),
+    contextImg: el('context-img'),
+    contextBox: el('context-box'),
+    contextCaption: el('context-caption'),
     mapsLink: el('maps-link'),
     credit: el('credit'),
     nextBtn: el('next-btn'),
@@ -197,7 +201,7 @@
     dom.submitNote.textContent = '地図をタップしてピンを立ててください';
 
     // 引き伸ばさない。枠が小さい問題は小さく出す（仕様 §5.4）。
-    dom.photoImg.src = config.imageBase + basename(question.image.key);
+    dom.photoImg.src = imageUrl(question.image.key);
     dom.photoImg.alt = `衛星画像（${question.frame.areaKm2} km² の範囲）`;
     dom.photoImg.style.maxWidth = `min(100%, ${question.image.width}px)`;
 
@@ -207,11 +211,38 @@
     // 終了画面のあいだ地図は非表示で、その間に窓の大きさが変わっても測り直せない。
     // 出題画面に戻ったここで測り直す。
     map.resize();
+    // 左の列で画像が入れ替わると、右の地図の幅も変わりうる。
+    window.requestAnimationFrame(function () {
+      map.resize();
+    });
   }
 
-  function basename(key) {
-    const parts = key.split('/');
-    return parts[parts.length - 1];
+  function imageUrl(key) {
+    return config.imageBase + key;
+  }
+
+  /**
+   * 結果画面の広域画像。出題した枠を白い四角で重ねる。
+   * 枠の一辺は広域の 1 / sideScale なので、位置と大きさは計算で出せる。
+   */
+  function showContext(question) {
+    const context = question.image.context;
+    const scale = config.context.sideScale;
+    const share = 100 / scale;
+
+    dom.contextImg.src = imageUrl(context.key);
+    dom.contextImg.alt = `もっと広い範囲の衛星画像（${context.areaKm2} km²）`;
+    dom.contextImg.style.maxWidth = `min(100%, ${context.width}px)`;
+
+    dom.contextBox.style.left = `${(100 - share) / 2}%`;
+    dom.contextBox.style.top = `${(100 - share) / 2}%`;
+    dom.contextBox.style.width = `${share}%`;
+    dom.contextBox.style.height = `${share}%`;
+
+    const sideKm = Math.sqrt(question.frame.areaKm2);
+    dom.contextCaption.textContent =
+      `白い枠の中が、さっき出した範囲（一辺 約${sideKm.toFixed(0)} km）。` +
+      `まわりはその${scale}倍の広さです。`;
   }
 
   // ── ヒント（仕様 §7.1）──────────────────────────
@@ -296,6 +327,8 @@
     state.phase = 'result';
     dom.body.dataset.phase = 'result';
 
+    showContext(question);
+
     map.pins.answer = { lat: question.answer.lat, lon: question.answer.lon };
     map.interactive = false;
     map.framePoints([state.guess, map.pins.answer]);
@@ -365,7 +398,7 @@
     const item = document.createElement('li');
 
     const img = document.createElement('img');
-    img.src = config.imageBase + basename(result.question.image.key);
+    img.src = imageUrl(result.question.image.key);
     img.alt = '';
     img.loading = 'lazy';
 
