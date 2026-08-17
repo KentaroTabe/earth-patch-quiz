@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ここはどこ ── EARTH PATCH</title>
+<meta name="description" content="衛星画像から場所を当てるクイズ。世界地図にピンを打って答える。">
+<meta name="color-scheme" content="dark">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-phase="loading">
+
+<header class="bar">
+  <h1>EARTH PATCH</h1>
+  <p class="progress" id="progress" aria-live="polite"></p>
+</header>
+
+<main id="main">
+
+  <!-- 問題画像。引き伸ばさないので、枠に応じて表示幅が変わる（仕様 §5.4）。 -->
+  <figure class="photo" id="photo">
+    <img id="photo-img" alt="衛星画像">
+  </figure>
+
+  <!-- 回答用の地図。陸地と国境の線だけ。衛星画像は使わない（原則2）。 -->
+  <div class="mapstage">
+    <div class="mapstage-head">
+      <span class="ask" id="ask">ここはどこ？</span>
+      <span class="verdict" id="verdict"></span>
+      <span class="spacer"></span>
+      <label class="toggle"><input type="checkbox" id="labels-toggle"> 国名</label>
+      <button type="button" class="ghost" id="hint-btn">ヒント</button>
+    </div>
+    <p class="hint" id="hint" hidden></p>
+    <div class="mapbox">
+      <canvas id="map" aria-label="世界地図。クリックまたはタップでピンを立てる。"></canvas>
+      <div class="zoom">
+        <button type="button" id="zoom-in" aria-label="拡大">＋</button>
+        <button type="button" id="zoom-out" aria-label="縮小">−</button>
+        <button type="button" id="zoom-reset" aria-label="全体表示">⤢</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 出題中 -->
+  <div class="panel" id="panel-question">
+    <button type="button" class="primary" id="submit-btn" disabled>決定</button>
+    <p class="note" id="submit-note">地図をタップしてピンを立ててください</p>
+  </div>
+
+  <!-- 結果 -->
+  <div class="panel" id="panel-result">
+    <p class="score" id="score"></p>
+    <div class="answer">
+      <h2 id="place"></h2>
+      <p class="region"><span id="region"></span><span class="coord" id="coord"></span></p>
+      <p class="headline" id="headline"></p>
+      <p class="caption" id="caption"></p>
+      <p class="term" id="term"></p>
+    </div>
+    <p class="links">
+      <a id="maps-link" href="#" target="_blank" rel="noopener noreferrer">Google マップで見る</a>
+    </p>
+    <p class="credit" id="credit"></p>
+    <button type="button" class="primary" id="next-btn">次へ</button>
+  </div>
+
+</main>
+
+<!-- 終了画面 -->
+<section class="summary" id="screen-summary">
+  <h2>おつかれさまでした</h2>
+  <p class="total" id="total"></p>
+  <p class="note" id="summary-note"></p>
+  <ol class="missed" id="missed"></ol>
+  <button type="button" class="primary" id="restart-btn">もう一度</button>
+  <p class="credit">
+    画像: NASA / USGS ・ 地図: Natural Earth ・
+    <a href="CREDITS.md">出典の一覧</a>
+  </p>
+</section>
+
+<noscript>
+  <p class="noscript">このクイズは JavaScript で動きます。有効にしてから開いてください。</p>
+</noscript>
+
+<script src="assets/config.js"></script>
+<script src="data/world.js"></script>
+<script src="data/questions.js"></script>
+<script src="img/manifest.js"></script>
+<script src="assets/map.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

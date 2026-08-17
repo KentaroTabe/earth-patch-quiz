@@ -1,0 +1,397 @@
+/* 配色・組版。ビルド工程は持たないので、素の CSS をそのまま配信する（仕様 §4.3）。 */
+
+:root {
+  --bg: #0b0e12;
+  --panel: #151a21;
+  --line: #262d37;
+  --ink: #e6e4df;
+  --ink-dim: #99a0ac;
+  --ink-faint: #6c7481;
+  --accent: #f0b429;
+  --answer: #57c07f;
+  --radius: 6px;
+  --page: 720px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── 画面の出し分け ───────────────────────────── */
+body[data-phase='loading'] main,
+body[data-phase='loading'] #screen-summary {
+  display: none;
+}
+body[data-phase='question'] #panel-result,
+body[data-phase='result'] #panel-question,
+body[data-phase='summary'] main {
+  display: none;
+}
+body:not([data-phase='summary']) #screen-summary {
+  display: none;
+}
+body[data-phase='result'] .photo {
+  display: none;
+}
+
+/* ── ヘッダ ──────────────────────────────────── */
+.bar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: var(--page);
+  margin: 0 auto;
+  padding: 14px 16px 10px;
+}
+
+.bar h1 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--ink-dim);
+}
+
+.progress {
+  margin: 0;
+  font-size: 13px;
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+main,
+.summary {
+  max-width: var(--page);
+  margin: 0 auto;
+  padding: 0 16px 40px;
+}
+
+/* ── 問題画像 ───────────────────────────────── */
+/* 引き伸ばさない。枠が小さい問題は小さいまま出す（仕様 §5.4）。 */
+.photo {
+  margin: 0 0 16px;
+  text-align: center;
+  background: #05070a;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+/* 幅の上限は問題ごとに JS が入れる（元画像より大きくしない）。
+   高さの上限は画面の都合。縮めるだけなので引き伸ばしにはならない。 */
+.photo img {
+  display: block;
+  margin: 0 auto;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 46vh;
+}
+
+.photo.broken::after {
+  content: '画像を読み込めませんでした。assets/config.js の imageBase を確かめてください。';
+  display: block;
+  padding: 40px 20px;
+  color: var(--ink-faint);
+  font-size: 13px;
+}
+
+.photo.broken img {
+  display: none;
+}
+
+/* ── 地図 ────────────────────────────────────── */
+.mapstage {
+  margin-bottom: 14px;
+}
+
+.mapstage-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  min-height: 30px;
+}
+
+.ask {
+  font-size: 15px;
+}
+
+.verdict {
+  font-size: 15px;
+  color: var(--answer);
+}
+
+.spacer {
+  flex: 1;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--ink-faint);
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle input {
+  accent-color: var(--ink-dim);
+  margin: 0;
+}
+
+.hint {
+  margin: 0 0 8px;
+  padding: 8px 11px;
+  background: var(--panel);
+  border-left: 2px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: 13px;
+  color: var(--ink-dim);
+}
+
+.mapbox {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+/* 正距円筒図法。経度 360 度 × 緯度 145 度ぶん（仕様 §8.1）。 */
+#map {
+  display: block;
+  width: 100%;
+  aspect-ratio: 360 / 145;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.zoom {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  display: flex;
+  gap: 4px;
+}
+
+.zoom button {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1;
+  color: var(--ink-dim);
+  background: rgba(11, 14, 18, 0.82);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.zoom button:hover {
+  color: var(--ink);
+}
+
+/* ── ボタン ─────────────────────────────────── */
+.primary {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: #10141a;
+  background: var(--ink);
+  border: 0;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.primary:disabled {
+  color: var(--ink-faint);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  cursor: default;
+}
+
+.ghost {
+  padding: 5px 12px;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--ink-dim);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.ghost:hover:not(:disabled) {
+  color: var(--ink);
+  border-color: var(--ink-faint);
+}
+
+.ghost:disabled {
+  color: var(--ink-faint);
+  cursor: default;
+  opacity: 0.5;
+}
+
+.note {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--ink-faint);
+  text-align: center;
+}
+
+/* ── 結果 ───────────────────────────────────── */
+.score {
+  margin: 0 0 16px;
+  font-size: 20px;
+  font-variant-numeric: tabular-nums;
+}
+
+.answer {
+  padding: 16px 18px;
+  background: var(--panel);
+  border-radius: var(--radius);
+}
+
+.answer h2 {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 600;
+}
+
+.region {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin: 2px 0 14px;
+  font-size: 13px;
+  color: var(--ink-dim);
+}
+
+.coord {
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.headline {
+  margin: 0 0 6px;
+  font-size: 16px;
+}
+
+.caption {
+  margin: 0;
+  color: var(--ink-dim);
+}
+
+.term {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: var(--ink-faint);
+}
+
+.links {
+  margin: 14px 0 6px;
+  font-size: 14px;
+}
+
+.links a,
+.credit a {
+  color: var(--ink-dim);
+}
+
+.credit {
+  margin: 0 0 18px;
+  font-size: 11px;
+  color: var(--ink-faint);
+}
+
+/* ── 終了画面 ───────────────────────────────── */
+.summary h2 {
+  margin: 8px 0 4px;
+  font-size: 19px;
+  font-weight: 600;
+}
+
+.total {
+  margin: 0 0 4px;
+  font-size: 26px;
+  font-variant-numeric: tabular-nums;
+}
+
+.missed {
+  margin: 16px 0 22px;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+
+.missed li {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 8px;
+  background: var(--panel);
+  border-radius: var(--radius);
+}
+
+.missed img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 4px;
+  background: #05070a;
+  flex: none;
+}
+
+.missed b {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.missed span {
+  font-size: 12px;
+  color: var(--ink-faint);
+}
+
+.noscript {
+  max-width: var(--page);
+  margin: 40px auto;
+  padding: 0 16px;
+  color: var(--ink-dim);
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+  .mapstage-head {
+    flex-wrap: wrap;
+  }
+  .score {
+    font-size: 18px;
+  }
+  .total {
+    font-size: 22px;
+  }
+}
