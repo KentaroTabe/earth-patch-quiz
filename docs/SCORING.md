@@ -60,18 +60,18 @@ richat 0% ／ dead-sea 22% ／ musandam 52% ／ great-salt-lake 60%
 
 仕様 §5.3 は「重みは必ず目視でチューニングします」と書いている。**まだやっていない。** 現在の重みは暫定値のまま。
 
-やっていないことがどう出ているか、20問の実測で確かめられる。
+やっていないことがどう出ているか、25問の実測で確かめられる。
 
 | 順位 | id | 弁別性 | 人が見た印象 |
 | --- | --- | --- | --- |
-| 1 | capetown | 0.897 | 悪くない |
-| 2 | musandam | 0.897 | 悪くない |
+| 1 | capetown | 0.975 | 悪くない |
+| 2 | musandam | 0.957 | 悪くない |
 | … | | | |
-| 10 | richat | 0.569 | **20枚のうち最も分かりやすい**のに10位 |
-| 19 | fuji | 0.096 | 円すいの山として一目で分かるのに最下位付近 |
-| 20 | manicouagan | 0.092 | 輪の形が明快なのに最下位 |
+| 22 | richat | 0.337 | **25枚のうち最も分かりやすい**のに22位 |
+| 24 | fuji | 0.075 | 円すいの山として一目で分かるのに下から2番目 |
+| 25 | manicouagan | 0.048 | 輪の形が明快なのに最下位 |
 
-水域の分散が効きすぎて、海が入っている枠が上位に来ている。richat も fuji も manicouagan も水がほとんど無いので沈む。
+水域の分散が効きすぎて、海が入っている枠が上位に来ている。richat も fuji も manicouagan も水がほとんど無いので沈む。枠を広げて足した5問でも同じ傾向が出ていて、水のある panama（0.582）と danube-delta（0.566）が上位、水の無い etosha（0.421）と lake-eyre（0.388）と okavango（0.376）が下位になった。**人が見た印象とはほぼ無関係。**
 
 **やるべきこと（仕様 §5.3 のとおり）**
 
@@ -94,17 +94,19 @@ difficulty = 1 + floor(5 * (1 - fame))     // 1〜5、1が易しい
 
 絶対値で正規化する案（`log(1+langs) / log(1+250)` など）も試したが、有名な地物ばかりを選ぶ性質上、難易度1〜2に11問が固まって使いものにならなかった。相対正規化のほうが配分が素直に出る。
 
-### 現在の配分（20問）
+### 現在の配分（25問）
 
 | 難易度 | 問数 | id |
 | --- | --- | --- |
-| 1 | 7 | dead-sea, suez, vesuvio, brasilia, etna, grand-canyon, fuji |
-| 2 | 6 | musandam, great-salt-lake, nasser, venezia, crater-lake, toba |
-| 3 | 4 | capetown, richat, betsiboka, manicouagan |
-| 4 | 2 | sossusvlei, lena-delta |
-| 5 | 1 | ngorongoro |
+| 1 | 8 | vesuvio, dead-sea, suez, panama, brasilia, etna, grand-canyon, fuji |
+| 2 | 4 | great-salt-lake, lake-eyre, okavango, toba |
+| 3 | 6 | musandam, nasser, crater-lake, venezia, danube-delta, richat |
+| 4 | 4 | capetown, etosha, betsiboka, manicouagan |
+| 5 | 3 | sossusvlei, ngorongoro, lena-delta |
 
-仕様 §5.5 の理想は1セット `1,1,2,2,2,3,3,4,4,5`。1セット目はぴったり組めるが、2セット目は難易度4と5が尽きるので近い難易度で埋める（`assets/app.js` の `bestIndex`）。**バンクが易しいほうに偏っている。** 無名で見た目の強い場所を足すのが次の仕事。
+仕様 §5.5 の理想は1セット `1,1,2,2,2,3,3,4,4,5`。2セット分だと `1×4 / 2×6 / 3×4 / 4×4 / 5×2` が要る。難易度2 が4問しかないので、2セット目の一部は近い難易度で埋まる（`assets/app.js` の `bestIndex`）。
+
+20問だった時点では `7 / 6 / 4 / 2 / 1` で難易度1に偏っていた。枠の上限を伸ばして5問（panama, danube-delta, etosha, okavango, lake-eyre）を足したところ、**難易度は相対値なので全体が押し広げられ**、4と5が増えて配分がかなり改善した。この動き方そのものが、難易度が絶対値ではないことの実例になっている。
 
 ---
 
@@ -123,7 +125,10 @@ difficulty = 1 + floor(5 * (1 - fame))     // 1〜5、1が易しい
 ```bash
 npm run scan        # Wikidata から候補点を作る（--class= でクラスを絞れる）
 npm run score       # 採用済みの問題を採点する
+npm run score -- --write                    # 結果を data/questions.js に書き戻す
 npm run score -- --candidates --fit-frame   # 候補を採点し、枠サイズも決める
 npm run fame        # 手で選んだ問題の言語版数を測る
 npm run sheet       # 目視用の一覧を書き出す
 ```
+
+問題を1問足したら `npm run score -- --write` を通し直すこと。**難易度は相対値なので、既存の問題の値も動く。** 手で貼り直すと必ず取りこぼす。

@@ -109,7 +109,9 @@ JSON ではなくグローバル変数を代入する `.js` にしてあるの�
 
 `answer.country` は表示と検査に使う。**定性的な帯（「国まで当たっています」など）の判定には使っていない。** 判定には正解座標に対する point-in-polygon の結果を使う。Natural Earth 1:110m の国境と手で書いた ISO コードがずれても、プレイヤーから見て矛盾しないようにするため。
 
-`frame.areaKm2` は `config/pipeline.json` の `frame.sizesKm2` から選ぶ。枠を変えたら `npm run fetch -- --force --only=<id>` で取り直す。
+`frame.areaKm2` は `config/pipeline.json` の `frame.sizesKm2`（50 / 100 / 200 / 500 / 1000 / 2000 / 5000 / 10000 / 20000）から選ぶ。枠を変えたら `npm run fetch -- --force --only=<id>` で取り直す。
+
+差し渡し 100km を超える地物（内陸デルタ、三角州、塩湖）は 10000〜20000 km² が要る。仕様 §5.4 の表は 2000 km² までだが、それでは扇の内側しか写らない（docs/IMAGERY.md §2）。
 
 ---
 
@@ -127,10 +129,9 @@ npm run serve      # http://localhost:4173/work/contact-sheet.html
 # 4. 採否を決めて adopted を書く。落とすなら reject に理由を書く
 # 5. 知名度を測る
 npm run fame -- <id>
-# 6. 全問を採点し直す（難易度は相対値なので既存の問題も動く）
-npm run score
-# 7. 出力された scores を data/questions.js に貼る
-# 8. 検査する
+# 6. 全問を採点し直して scores を書き戻す（難易度は相対値なので既存の問題も動く）
+npm run score -- --write
+# 7. 検査する
 npm run check
 ```
 

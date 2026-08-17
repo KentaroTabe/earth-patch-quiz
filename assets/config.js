@@ -54,6 +54,7 @@ window.EARTH_PATCH_CONFIG = {
   hint: {
     perQuestion: 1,
     // 枠の一辺に近い距離を選んで「この幅＝◯◯」と出す。直線距離のおおよその値。
+    // 枠は 50km²（一辺7km）から 20000km²（一辺141km）まであるので、その範囲を覆う。
     references: [
       { km: 6, label: '東京駅から新宿駅' },
       { km: 15, label: '東京駅から羽田空港' },
@@ -61,6 +62,9 @@ window.EARTH_PATCH_CONFIG = {
       { km: 32, label: '東京駅から立川駅' },
       { km: 40, label: '大阪駅から京都駅' },
       { km: 57, label: '東京駅から成田空港' },
+      { km: 73, label: '東京駅から小田原駅' },
+      { km: 98, label: '東京駅から宇都宮駅' },
+      { km: 147, label: '東京駅から静岡駅' },
     ],
   },
 

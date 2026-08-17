@@ -1,6 +1,7 @@
 // 弁別性を計算し、枠サイズを決める（仕様 §5.3〜§5.5）。
 //
 //   npm run score                  … data/questions.js の採用分を採点する
+//   npm run score -- --write       … 結果を data/questions.js の scores に書き戻す
 //   npm run score -- --candidates  … work/candidates.json（scan の出力）を採点する
 //   npm run score -- --fit-frame   … 枠を段階的に広げ、しきい値を超えたところで確定する
 //
@@ -23,6 +24,7 @@ const pipeline = loadPipeline();
 const args = process.argv.slice(2);
 const useCandidates = args.includes('--candidates');
 const fitFrame = args.includes('--fit-frame');
+const writeBack = args.includes('--write');
 const source = resolveSource(args.find((a) => a.startsWith('--source='))?.slice('--source='.length));
 
 function loadGlobal(path, name) {
@@ -191,9 +193,13 @@ async function main() {
     console.log(`  ${level}: ${String(ids.length).padStart(2)} 問  ${ids.join(', ')}`);
   }
 
-  console.log('\ndata/questions.js に貼る値');
-  for (const s of [...scored].sort((a, b) => a.id.localeCompare(b.id))) {
-    console.log(`  ${s.id}: scores: { distinct: ${s.distinct}, fame: ${s.fame}, difficulty: ${s.difficulty} },`);
+  if (writeBack && !useCandidates) {
+    writeScoresInto(scored);
+  } else {
+    console.log('\ndata/questions.js に貼る値（--write で直接書き戻せます）');
+    for (const s of [...scored].sort((a, b) => a.id.localeCompare(b.id))) {
+      console.log(`  ${s.id}: scores: { distinct: ${s.distinct}, fame: ${s.fame}, difficulty: ${s.difficulty} },`);
+    }
   }
 
   mkdirSync(inRoot(pipeline.output.workDir), { recursive: true });
@@ -201,6 +207,34 @@ async function main() {
   writeFileSync(outPath, `${JSON.stringify(scored, null, 2)}\n`);
   console.log(`\n${outPath.replace(inRoot('.'), '.')} を書きました`);
   console.log('※ 重みは目視ラベル100枚で調整するまで暫定です（docs/SCORING.md）。');
+}
+
+/**
+ * data/questions.js の scores 行だけを書き換える。
+ * 難易度は候補集合に対する相対値なので、問題を足すたびに全件が動く（docs/SCORING.md §4）。
+ * 手で貼り直すと取りこぼすため、機械が書く。
+ */
+function writeScoresInto(scored) {
+  const path = inRoot('data/questions.js');
+  let text = readFileSync(path, 'utf8');
+  let replaced = 0;
+
+  for (const s of scored) {
+    // 該当 id のブロックの中の scores 行だけを狙う。
+    const block = new RegExp(`(id: '${s.id}',[\\s\\S]*?)scores: \\{[^}]*\\}`, 'm');
+    if (!block.test(text)) {
+      console.log(`  ! ${s.id} の scores 行が見つかりません`);
+      continue;
+    }
+    text = text.replace(
+      block,
+      `$1scores: { distinct: ${s.distinct}, fame: ${s.fame}, difficulty: ${s.difficulty} }`,
+    );
+    replaced++;
+  }
+
+  writeFileSync(path, text);
+  console.log(`\ndata/questions.js の scores を ${replaced} 件書き換えました`);
 }
 
 function report(target, m) {
