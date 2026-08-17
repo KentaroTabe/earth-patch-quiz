@@ -31,15 +31,15 @@ export function normalizeAccountId(value) {
 }
 
 /**
- * アカウントIDとバケット名は、公開リポジトリに出さずに済むよう環境変数からも受け取る。
- * config/pipeline.json に書いてあればそちらが優先。
+ * アカウントIDとバケット名は、公開リポジトリに出さずに済むよう環境変数から受け取る。
+ * .env.local は手元の上書き用なので、config/pipeline.json より環境変数を優先する。
  */
 export function resolveR2(r2Cfg, env) {
-  const publicBase = (r2Cfg.publicBase || env.R2_PUBLIC_BASE || '').trim();
+  const publicBase = (env.R2_PUBLIC_BASE || r2Cfg.publicBase || '').trim();
   return {
     ...r2Cfg,
-    accountId: normalizeAccountId(r2Cfg.accountId || env.R2_ACCOUNT_ID),
-    bucket: (r2Cfg.bucket || env.R2_BUCKET || '').trim().replace(/^\/+|\/+$/g, ''),
+    accountId: normalizeAccountId(env.R2_ACCOUNT_ID || r2Cfg.accountId),
+    bucket: (env.R2_BUCKET || r2Cfg.bucket || '').trim().replace(/^\/+|\/+$/g, ''),
     publicBase: publicBase && !publicBase.endsWith('/') ? `${publicBase}/` : publicBase,
   };
 }

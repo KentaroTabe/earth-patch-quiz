@@ -179,36 +179,29 @@ API トークンの権限は「オブジェクトの読み書き」で足りる�
 ```bash
 npm run fetch -- --upload-only   # 手元の画像を取り直さずに上げる
 npm run fetch -- --force         # 取り直して上げる
+npm run fetch -- --verify-only   # 公開URLから読めるかだけ確かめる
 ```
 
 S3 互換 API に SigV4 で署名して PUT している（`scripts/lib/r2.mjs`）。外部ライブラリは使っていない。
 
-アップロードのあと、**上げたものが公開URLから実際に読めるかを確かめる。**
+アップロードのあと、**上げたものが公開URLから実際に読めるかを1件ずつ確かめる。**
 
 ```
-公開URLの確認: https://pub-xxxxxxxx.r2.dev/q/betsiboka.jpg
-  読めました（HTTP 200 image/jpeg）
+公開URLの確認 25 件  https://pub-xxxxxxxx.r2.dev/
+  25 件すべて読めました
 ```
+
+読めないものがあれば終了コードが 1 になる。バケットへの書き込みが成功していても、公開設定が入っていなければサイトからは見えない。この確認が無いと、デプロイして初めて画像だけ出ないことに気づく羽目になる。
 
 バケットへの書き込みが成功していても、公開設定が入っていなければサイトからは見えない。この確認が無いと、デプロイして初めて画像だけ出ないことに気づく羽目になる。
 
-### いまの状態と、残っている作業
+### 公開URLはバケットごとに違う
 
-25枚とも `earth-patch-quiz` バケットに入っている（`q/<id>.jpg`）。**ただし公開URLからは 404 が返る。**
+移行のときにここで詰まった。**r2.dev のサブドメインはバケットごとに別々に割り当てられる。** 別バケットの URL を使うと、アップロードは成功しているのに 404 だけが返る。S3 API でバケットの中身を数えれば、書き込みが成功していることはすぐ確かめられる。
 
-```
-$ curl -I https://pub-c5eba36108c542a3bf40bddc2b305bd7.r2.dev/q/richat.jpg
-HTTP/2 404
-```
+公開URLは Cloudflare の **R2 → 該当バケット → 設定 → パブリックアクセス** に表示されているものを使う。
 
-S3 API 経由の一覧では 25 件すべて見えているので、アップロード自体は成功している。原因は次のどちらか。
-
-1. バケット `earth-patch-quiz` の公開アクセス（r2.dev サブドメイン）が有効になっていない
-2. 手元にある公開URLが、別のバケットのものになっている
-
-Cloudflare の **R2 → バケット `earth-patch-quiz` → 設定 → パブリックアクセス** を開き、r2.dev サブドメインを有効にして、そこに表示される URL を使う。バケットごとに別のサブドメインが割り当てられる点に注意。
-
-### サイト側（公開URLが読めるようになってから）
+### サイト側
 
 `assets/config.js` の `imageBase` を公開URLに向ける。**触るのはこの1行だけ。**
 
@@ -216,7 +209,24 @@ Cloudflare の **R2 → バケット `earth-patch-quiz` → 設定 → パブリ
 imageBase: 'https://pub-xxxxxxxx.r2.dev/q/',
 ```
 
-そのあと `img/q/` をリポジトリから外し、`.gitignore` に足す。**読めることを確かめる前に外さないこと。** 外した瞬間、どこからも画像が出なくなる。
+`img/q/` は `.gitignore` に入れてある（仕様 §4.1）。手元に用意し直すときは `npm run fetch`。
+
+**読めることを確かめる前に Git から外さないこと。** 外した瞬間、どこからも画像が出なくなる。
+
+### 設定の優先順位
+
+`.env.local` は手元の上書き用なので、**`config/pipeline.json` より環境変数が優先される。**
+
+| 値 | 環境変数 | config |
+| --- | --- | --- |
+| アカウントID | `R2_ACCOUNT_ID` | `r2.accountId` |
+| バケット名 | `R2_BUCKET` | `r2.bucket` |
+| 公開URL | `R2_PUBLIC_BASE` | `r2.publicBase` |
+| アクセスキー | `R2_ACCESS_KEY_ID` / `R2_SECRET_ACCESS_KEY` | （config には置かない） |
+
+公開URLは秘密ではないので `config/pipeline.json` に置いてある。アカウントIDと鍵は `.env.local` だけ。
+
+アカウントIDは `https://` や `.r2.cloudflarestorage.com` が付いていても受け付ける。Cloudflare の画面からは S3 API のエンドポイントごとコピーされることが多いため。
 
 ### r2.dev エンドポイントについて
 

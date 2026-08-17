@@ -65,6 +65,14 @@ for (const question of questions.filter((q) => q.adopted === false)) {
 }
 
 const adopted = questions.filter((q) => q.adopted !== false);
+const servesImagesRemotely = /^https?:\/\//.test(siteConfig.imageBase);
+if (servesImagesRemotely) {
+  warn(
+    '(全体)',
+    `画像は外部から配信しています（${siteConfig.imageBase}）。` +
+      '実際に読めるかは npm run fetch -- --verify-only で確かめてください',
+  );
+}
 
 for (const question of adopted) {
   const id = question.id ?? '(id なし)';
@@ -122,11 +130,13 @@ for (const question of adopted) {
     if (entry.credit !== question.image.credit) {
       fail(id, 'image.credit が manifest と違います');
     }
-    const localPath = inRoot(pipeline.output.imageDir, `${question.id}.jpg`);
-    if (siteConfig.imageBase.startsWith('http')) {
-      warn(id, `imageBase が外部を指しています（${siteConfig.imageBase}）。R2 側にファイルがあるか確かめてください`);
-    } else if (!existsSync(localPath)) {
-      fail(id, `画像ファイルがありません（${pipeline.output.imageDir}/${question.id}.jpg）`);
+    // 画像を外部（R2）から配信しているときは、ここでファイルの有無は見ない。
+    // 実物が読めるかは npm run fetch -- --verify-only が確かめる。
+    if (!servesImagesRemotely) {
+      const localPath = inRoot(pipeline.output.imageDir, `${question.id}.jpg`);
+      if (!existsSync(localPath)) {
+        fail(id, `画像ファイルがありません（${pipeline.output.imageDir}/${question.id}.jpg）`);
+      }
     }
   }
   const credit = question.image.credit ?? '';

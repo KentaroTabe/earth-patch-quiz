@@ -6,6 +6,7 @@
 //   npm run fetch -- --only=richat,fuji
 //   npm run fetch -- --prune       … 不採用（adopted: false）の画像を消す
 //   npm run fetch -- --upload-only … 手元の画像を取り直さずに R2 へ上げる
+//   npm run fetch -- --verify-only … 公開URLから読めるかだけ確かめる
 //   npm run fetch:dry              … 通信せず、叩く URL だけ出す
 //
 // 閲覧時にはタイルを取りに行かない（仕様 §14）。画像は事前にここで取り切る。
@@ -24,6 +25,7 @@ const dryRun = args.includes('--dry');
 const force = args.includes('--force');
 const prune = args.includes('--prune');
 const uploadOnly = args.includes('--upload-only');
+const verifyOnly = args.includes('--verify-only');
 const onlyArg = args.find((a) => a.startsWith('--only='));
 const only = onlyArg ? new Set(onlyArg.slice('--only='.length).split(',')) : null;
 const sourceArg = args.find((a) => a.startsWith('--source='));
@@ -106,6 +108,12 @@ async function main() {
       continue;
     }
 
+    // 公開URLの確認だけ。取得もアップロードもしない。
+    if (verifyOnly) {
+      manifest.push(entryFor(question, localPath, key, px, url));
+      continue;
+    }
+
     // 手元にある画像をそのまま R2 へ上げる。取得はやり直さない。
     if (uploadOnly) {
       if (!existsSync(localPath)) {
@@ -150,38 +158,47 @@ async function main() {
 
   writeManifest(manifest);
 
-  if (r2.ready && manifest.length) await verifyPublicAccess(manifest[0].key);
+  if (r2.ready || verifyOnly) await verifyPublicAccess(manifest.map((entry) => entry.key));
 }
 
 /**
- * 上げたものが公開URLから実際に読めるか確かめる。
+ * 上げたものが公開URLから実際に読めるか、1件ずつ確かめる。
  * バケットへの書き込みが成功していても、公開設定が入っていなければサイトからは見えない。
  * ここを見ないと、デプロイして初めて画像だけ出ないことに気づく羽目になる。
  */
-async function verifyPublicAccess(key) {
+async function verifyPublicAccess(keys) {
   if (!r2Config.publicBase) {
     console.log('\n公開URLが設定されていないので、読み取りの確認は飛ばします');
     return;
   }
-  const url = `${r2Config.publicBase}${key}`;
-  console.log(`\n公開URLの確認: ${url}`);
-  try {
-    const response = await fetch(url, { signal: AbortSignal.timeout(30000) });
-    const type = response.headers.get('content-type') ?? '';
-    if (response.ok && type.startsWith('image/')) {
-      console.log(`  読めました（HTTP ${response.status} ${type}）`);
-      return;
+  console.log(`\n公開URLの確認 ${keys.length} 件  ${r2Config.publicBase}`);
+
+  const broken = [];
+  for (const key of keys) {
+    try {
+      const response = await fetch(`${r2Config.publicBase}${key}`, {
+        method: 'HEAD',
+        signal: AbortSignal.timeout(30000),
+      });
+      const type = response.headers.get('content-type') ?? '';
+      if (!response.ok || !type.startsWith('image/')) broken.push(`${key} (HTTP ${response.status} ${type})`);
+    } catch (error) {
+      broken.push(`${key} (${error.message})`);
     }
-    console.log(`  読めません（HTTP ${response.status} ${type}）`);
-    console.log('  バケットには入っているのに公開URLから読めない場合、原因はほぼ次のどちらかです。');
-    console.log('   - そのバケットの公開アクセス（r2.dev サブドメイン）が有効になっていない');
-    console.log('   - 公開URLが別のバケットのものになっている');
-    console.log('  Cloudflare の R2 → 該当バケット → 設定 → パブリックアクセス で確認してください。');
-    process.exitCode = 1;
-  } catch (error) {
-    console.log(`  確認できませんでした: ${error.message}`);
-    process.exitCode = 1;
   }
+
+  if (!broken.length) {
+    console.log(`  ${keys.length} 件すべて読めました`);
+    return;
+  }
+
+  console.log(`  読めないものが ${broken.length} 件あります`);
+  for (const item of broken.slice(0, 10)) console.log(`   x ${item}`);
+  console.log('  バケットには入っているのに公開URLから読めない場合、原因はほぼ次のどちらかです。');
+  console.log('   - そのバケットの公開アクセス（r2.dev サブドメイン）が有効になっていない');
+  console.log('   - 公開URLが別のバケットのものになっている（サブドメインはバケットごとに別）');
+  console.log('  Cloudflare の R2 → 該当バケット → 設定 → パブリックアクセス で確認してください。');
+  process.exitCode = 1;
 }
 
 function entryFor(question, localPath, key, px, url) {

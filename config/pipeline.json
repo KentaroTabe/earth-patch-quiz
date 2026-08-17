@@ -108,7 +108,7 @@
     "bucket": "",
     "region": "auto",
     "prefix": "q/",
-    "publicBase": "https://pub-c5eba36108c542a3bf40bddc2b305bd7.r2.dev/",
+    "publicBase": "https://pub-d251133e7b3e43d6a089f249b360ac5a.r2.dev/",
     "credentialEnv": {
       "id": "R2_ACCESS_KEY_ID",
       "secret": "R2_SECRET_ACCESS_KEY"
