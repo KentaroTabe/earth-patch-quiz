@@ -1,0 +1,24 @@
+{
+  "name": "earth-patch",
+  "version": "0.1.0",
+  "private": true,
+  "description": "衛星画像から場所を当てるクイズ。世界地図にピンを打って答える。",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "scan": "node scripts/scan-candidates.mjs",
+    "score": "node scripts/score-candidates.mjs",
+    "fetch": "node scripts/fetch-tiles.mjs",
+    "fetch:dry": "node scripts/fetch-tiles.mjs --dry",
+    "sheet": "node scripts/contact-sheet.mjs",
+    "world": "node scripts/build-world.mjs",
+    "validate": "node scripts/validate.mjs",
+    "check": "node scripts/check.mjs",
+    "serve": "node scripts/serve.mjs",
+    "fame": "node scripts/lookup-fame.mjs",
+    "verify:world": "node scripts/verify-world.mjs"
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "$comment": "取得・採点パイプラインのパラメータ。スクリプト側に数値を直接書かない。仕様 §5 に対応。",
+  "candidates": {
+    "$comment": "仕様 §5.2。Wikidata から候補点を作る条件。",
+    "sparqlEndpoint": "https://query.wikidata.org/sparql",
+    "userAgent": "earth-patch/0.1 (https://github.com/KentaroTabe/earth-patch-quiz)",
+    "classes": {
+      "Q23397": "湖",
+      "Q4022": "川",
+      "Q8074": "火山",
+      "Q39816": "カルデラ",
+      "Q8502": "山",
+      "Q42302": "ダム"
+    },
+    "minLanguages": 5,
+    "latMin": -60,
+    "latMax": 85,
+    "requestTimeoutMs": 120000,
+    "maxRows": 20000
+  },
+  "frame": {
+    "$comment": "仕様 §5.4。枠を小さいほうから広げ、弁別性がしきい値を超えた時点で確定する。",
+    "sizesKm2": [
+      50,
+      100,
+      200,
+      500,
+      1000,
+      2000
+    ],
+    "probePx": 48,
+    "analysisPx": 256,
+    "outputMaxPx": 1400,
+    "outputMinPx": 320,
+    "earthRadiusKm": 6371,
+    "degPerKmLat": 0.008993216059
+  },
+  "distinct": {
+    "$comment": "仕様 §5.3。重みは目視ラベル100枚で調整する前の暫定値。docs/SCORING.md 参照。",
+    "weights": {
+      "nn": 0.45,
+      "wv": 0.25,
+      "c": 0.2,
+      "l": 0.1
+    },
+    "threshold": 0.55,
+    "ndwiThreshold": 0,
+    "waterGridN": 4,
+    "kmeans": {
+      "k": 6,
+      "iterations": 12,
+      "minClusterShare": 0.02,
+      "seed": 20260817
+    },
+    "hough": {
+      "angleSteps": 180,
+      "edgeThreshold": 48,
+      "topFraction": 0.001
+    },
+    "hash": {
+      "gridN": 4,
+      "statsPerCell": 4
+    },
+    "knn": {
+      "k": 5
+    },
+    "normalizePercentile": {
+      "low": 0.05,
+      "high": 0.95
+    },
+    "waterRgb": {
+      "$comment": "取得元が表示用の合成画像しか出さない時に使う経験則。青が赤よりこれだけ強く、かつ暗ければ水域とみなす。",
+      "blueOverRedMargin": 4,
+      "maxLuma": 120
+    }
+  },
+  "fame": {
+    "$comment": "仕様 §5.5。fame = norm(log(1 + 言語版数))。",
+    "minimum": 0.2,
+    "langsSaturation": 250
+  },
+  "difficulty": {
+    "$comment": "difficulty = 1 + floor(levels * (1 - fame))。1〜5、1が易しい。",
+    "levels": 5,
+    "min": 1,
+    "max": 5
+  },
+  "quality": {
+    "$comment": "仕様 §5.4 の下見（probe）で雲・欠測を落とす条件。0〜255 の輝度で判定。",
+    "voidLumaBelow": 6,
+    "cloudLumaAbove": 240,
+    "maxBadPixelShare": 0.15,
+    "minStdDev": 4
+  },
+  "output": {
+    "jpegQuality": 80,
+    "imageDir": "img/q",
+    "manifestPath": "img/manifest.js",
+    "workDir": "work"
+  },
+  "r2": {
+    "$comment": "Cloudflare R2。enabled が false のあいだは fetch-tiles.mjs はローカル保存だけで終わる。アカウント作成後に埋める。docs/IMAGERY.md 参照。",
+    "enabled": false,
+    "accountId": "",
+    "bucket": "",
+    "region": "auto",
+    "prefix": "q/",
+    "publicBase": "",
+    "credentialEnv": {
+      "id": "R2_ACCESS_KEY_ID",
+      "secret": "R2_SECRET_ACCESS_KEY"
+    }
+  },
+  "world": {
+    "$comment": "仕様 §6.2。Natural Earth 1:110m から data/world.js を作る条件。1:50m にすると海岸線の精度は上がるが 1MB を超え、容量の目安 300〜500KB に収まらない。沿岸の粗さは assets/config.js の map.coastSnapKm で補う。",
+    "naturalEarthBase": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson",
+    "landFile": "ne_110m_land.geojson",
+    "countriesFile": "ne_110m_admin_0_countries.geojson",
+    "simplifyToleranceDeg": 0.02,
+    "minRingAreaDeg2": 0.02,
+    "coordinateDecimals": 2,
+    "neighborSharedVertexMin": 2,
+    "neighborVertexRoundDeg": 0.5,
+    "latMin": -60,
+    "latMax": 85
+  }
+}

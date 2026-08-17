@@ -1,0 +1,98 @@
+{
+  "$comment": "画像の取得元。仕様 付録の未確定事項 #1（無雲モザイクの提供元とライセンス）に対応する。既定は NASA GIBS。ここを差し替えれば取得スクリプトはそのまま動く。",
+  "default": "gibs-landsat-annual",
+  "sources": {
+    "gibs-landsat-annual": {
+      "label": "NASA GIBS / Landsat 年次無雲モザイク",
+      "protocol": "wms",
+      "endpoint": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi",
+      "wmsVersion": "1.1.1",
+      "srs": "EPSG:4326",
+      "layers": {
+        "truecolor": "Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual",
+        "swirNir": "Landsat_WELD_CorrectedReflectance_Bands743_Global_Annual"
+      },
+      "bandChannels": {
+        "$comment": "NDWI 用。truecolor の G が green（バンド2）、swirNir の G が近赤外（バンド4）。",
+        "green": {
+          "layer": "truecolor",
+          "channel": 1
+        },
+        "nir": {
+          "layer": "swirNir",
+          "channel": 1
+        }
+      },
+      "time": "2000-12-01",
+      "metersPerPixel": 30,
+      "maxRequestPx": 4096,
+      "sensor": "landsat",
+      "credit": "NASA Worldview / GIBS. Landsat data courtesy of the U.S. Geological Survey.",
+      "license": "public-domain",
+      "commercialUse": true,
+      "requiresApproval": false,
+      "reflectanceLinear": false
+    },
+    "gibs-modis-truecolor": {
+      "label": "NASA GIBS / MODIS Terra True Color（広い枠の予備）",
+      "protocol": "wms",
+      "endpoint": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi",
+      "wmsVersion": "1.1.1",
+      "srs": "EPSG:4326",
+      "layers": {
+        "truecolor": "MODIS_Terra_CorrectedReflectance_TrueColor"
+      },
+      "bandChannels": null,
+      "time": "2025-07-15",
+      "metersPerPixel": 250,
+      "maxRequestPx": 4096,
+      "sensor": "modis",
+      "credit": "NASA Worldview / GIBS. MODIS Terra Corrected Reflectance.",
+      "license": "public-domain",
+      "commercialUse": true,
+      "requiresApproval": false,
+      "reflectanceLinear": false
+    },
+    "gibs-bluemarble": {
+      "label": "NASA GIBS / Blue Marble Next Generation（大陸規模の枠）",
+      "protocol": "wms",
+      "endpoint": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi",
+      "wmsVersion": "1.1.1",
+      "srs": "EPSG:4326",
+      "layers": {
+        "truecolor": "BlueMarble_NextGeneration"
+      },
+      "bandChannels": null,
+      "time": null,
+      "metersPerPixel": 500,
+      "maxRequestPx": 4096,
+      "sensor": "bmng",
+      "credit": "NASA Earth Observatory. Blue Marble Next Generation.",
+      "license": "public-domain",
+      "commercialUse": true,
+      "requiresApproval": false,
+      "reflectanceLinear": false
+    },
+    "cdse-sentinel2": {
+      "$comment": "未設定。Copernicus Data Space Ecosystem の認証情報を CDSE_CLIENT_ID / CDSE_CLIENT_SECRET で渡すと有効になる。10m。原則1（一次配布元の NASA と Copernicus に限る）を満たす。",
+      "label": "Copernicus Data Space / Sentinel-2",
+      "protocol": "sentinel-hub",
+      "endpoint": "https://sh.dataspace.copernicus.eu/api/v1/process",
+      "tokenEndpoint": "https://identity.dataspace.copernicus.eu/auth/realms/CDSE/protocol/openid-connect/token",
+      "credentialEnv": {
+        "id": "CDSE_CLIENT_ID",
+        "secret": "CDSE_CLIENT_SECRET"
+      },
+      "collection": "sentinel-2-l2a",
+      "metersPerPixel": 10,
+      "maxRequestPx": 2500,
+      "sensor": "s2",
+      "credit": "Contains modified Copernicus Sentinel data",
+      "license": "copernicus",
+      "commercialUse": true,
+      "requiresApproval": true,
+      "enabled": false,
+      "reflectanceLinear": true
+    }
+  }
+}
